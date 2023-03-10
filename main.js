@@ -3,11 +3,19 @@ const timeID = setInterval(clockAndDateUpdate, 1000);
 function init() {
     document.body.style.background = "url(img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
     document.body.style.backgroundSize = "cover"
+    document.getElementById("searchbox").focus()
 }
 
 document.getElementById("searchbox").addEventListener("change", function() {
     window.location.replace("https://www.google.com/search?q=" + document.getElementById("searchbox").value)
 })
+
+document.onkeypress = function(e) {
+    if(document.activeElement.id != "searchbox") {
+        document.getElementById("searchbox").focus()
+        document.getElementById("searchbox").value = document.getElementById("searchbox").value + e.key
+    }
+}
 
 function clockAndDateUpdate() {
     const today = new Date()
