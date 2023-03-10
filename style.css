@@ -1,0 +1,100 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+}
+
+#container {
+    background-color: rgba(255, 255, 255, 0.1);
+    min-width: 50vw;
+    min-height: 22vh;
+    width: fit-content;
+    height: fit-content;
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    border-radius: 1vh;
+    backdrop-filter: blur(5px);
+}
+
+#not-bookmarks {
+    position: absolute;
+    top: 50%;
+    left: 31.25%;
+    transform: translate(-50%, -50%);
+    width: 25vw;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+}
+
+#clock-container>label {
+    color: white;
+    font-size: 2vw;
+    text-align: center;
+}
+
+#clock-container {
+    text-align: center;
+    width: fit-content;
+    height: fit-content;
+}
+
+#searchbox {
+    position: absolute;
+    top: 35vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 0;
+    height: 2vh;
+    width: 30vw;
+    border-radius: 1vh;
+    text-align: center;
+    color: white;
+    font-size: 1.75vh;
+    transition: 500ms;
+    backdrop-filter: blur(5px);
+}
+
+#searchbox:focus {
+    outline: none;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+#bookmarks {
+    position: relative;
+    left: 50%;
+    top: 0.5vh;
+}
+
+#left-bookmarks {
+    position: absolute;
+    left: 10%;
+    transform: translateX(-50%);
+}
+
+#right-bookmarks {
+    position: absolute;
+    left: 35%;
+    transform: translateX(-50%);
+}
+
+
+#bookmarks>*>a:hover::before {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+ion-icon {
+    font-size: 4vh;
+    color: white;
+    margin: 0.5vh;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    transition: 500ms;
+}
+
+ion-icon:hover {
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
+}

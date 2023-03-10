@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body onload="init()">
+    <input type="text" id="searchbox" placeholder="Search Google">
+    <div id="container">
+        <div id="stuff-container">
+            <div id="not-bookmarks">
+                <div id="clock-container">
+                    <label id="clock"></label>
+                    <br>
+                    <label id="date"></label>
+                </div>
+            </div>
+            <div id="bookmarks">
+                <div id="left-bookmarks">
+                    <a href="https://www.reddit.com/">
+                        <ion-icon name="logo-reddit"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://www.youtube.com/">
+                        <ion-icon name="logo-youtube"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://www.twitch.tv/">
+                        <ion-icon name="logo-twitch"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://github.com/">
+                        <ion-icon name="logo-github"></ion-icon>
+                    </a>
+                </div>
+                <div id="right-bookmarks">
+                    <a href="https://mail.google.com/mail/u/0/#inbox">
+                        <ion-icon name="mail"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://www.typingclub.com/">
+                        <ion-icon name="accessibility"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://monkeytype.com/">
+                        <ion-icon name="happy"></ion-icon>
+                    </a>
+                    <br>
+                    <a href="https://zty.pe/">
+                        <ion-icon name="game-controller"></ion-icon>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
