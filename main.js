@@ -14,7 +14,6 @@ document.getElementById("searchbox").addEventListener("change", function() {
 
 document.onkeypress = function(e) {
   if (document.activeElement.id != "searchbox") {
-    document.getElementById("searchbox").focus()
     document.getElementById("searchbox").value = document.getElementById("searchbox").value + e.key
   }
 }
