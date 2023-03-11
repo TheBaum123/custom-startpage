@@ -97,4 +97,17 @@ ion-icon {
 
 ion-icon:hover {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
+    transform: scale(1.5);
+}
+
+#netflix-logo {
+    height: 4vh;
+    margin: 0.5vh;
+    filter: invert(1) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    transition: 500ms;
+}
+
+#netflix-logo:hover {
+    filter: invert(1) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
+    transform: scale(1.5);
 }
