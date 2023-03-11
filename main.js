@@ -1,3 +1,5 @@
+// TODO: Convert hours minutes seconds and days into two digit numbers
+
 const timeID = setInterval(clockAndDateUpdate, 1000);
 
 function init() {
@@ -25,10 +27,18 @@ function clockAndDateUpdate() {
   let days = today.getDay()
   let month = today.getMonth();
   let year = today.getFullYear();
-  let clockOutput = hours + " | " + minutes + " | " + seconds
-  let dateOutput = days + " / " + monthConversion(month) + "\n" + year
+  let clockOutput = correctNumber(hours) + " | " + correctNumber(minutes) + " | " + correctNumber(seconds)
+  let dateOutput = correctNumber(days) + " / " + monthConversion(month) + "\n" + year
   document.getElementById("clock").innerHTML = clockOutput
   document.getElementById("date").innerHTML = dateOutput
+}
+
+function correctNumber(originalNumber) {
+  if(originalNumber < 10 && originalNumber >= 0) {
+    return("0" + originalNumber)
+  } else {
+    return(originalNumber)
+  }
 }
 
 function monthConversion(month) {
