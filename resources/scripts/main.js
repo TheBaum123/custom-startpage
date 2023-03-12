@@ -3,7 +3,7 @@
 const timeID = setInterval(clockAndDateUpdate, 1000);
 
 function init() {
-  document.body.style.background = "url(img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
+  document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
   document.body.style.backgroundSize = "cover"
   document.getElementById("searchbox").focus()
 }
