@@ -5,7 +5,6 @@ const timeID = setInterval(clockAndDateUpdate, 1000);
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
   document.body.style.backgroundSize = "cover"
-  document.getElementById("searchbox").focus()
 }
 
 document.getElementById("searchbox").addEventListener("change", function() {
@@ -56,6 +55,7 @@ document.getElementById("searchbox").addEventListener("change", function() {
 document.onkeypress = function(e) {
   if (document.activeElement.id != "searchbox") {
     document.getElementById("searchbox").value = document.getElementById("searchbox").value + e.key
+    document.getElementById("searchbox").focus()
   }
 }
 
