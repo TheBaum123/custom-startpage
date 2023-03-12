@@ -12,7 +12,7 @@ function init() {
     document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("focused-color"))
   }
   if(localStorage.getItem("highlight-color") != null) {
-    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("--highlight color"))
+    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight color"))
   }
 }
 
