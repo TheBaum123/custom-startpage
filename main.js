@@ -9,7 +9,48 @@ function init() {
 }
 
 document.getElementById("searchbox").addEventListener("change", function() {
-  window.location.replace("https://www.google.com/search?q=" + document.getElementById("searchbox").value)
+  let searchinput = document.getElementById("searchbox").value
+  if(searchinput.startsWith("reddit")) {
+    if(searchinput.startsWith("reddit:")) {
+      window.location.replace("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
+    } else {
+      window.location.replace("https://www.reddit.com")
+    }
+  } else if(searchinput.startsWith("yt") || searchinput.startsWith("youtube")){
+      if(searchinput.startsWith("yt:")) {
+        window.location.replace("https://www.youtube.com/results?search_query=" + searchinput.replace("yt:", ""))
+      } else if(searchinput.startsWith("youtube:")){
+          window.location.replace("https://www.youtube.com/results?search_query=" + searchinput.replace("youtube:", ""))
+        }
+        else {
+          window.location.replace("https://www.youtube.com")
+        }
+  } else if(searchinput.startsWith("twitch")) {
+    if(searchinput.startsWith("twitch:")) {
+      window.location.replace("https://www.twitch.tv/search?term=" + searchinput.replace("twitch:", ""))
+    } else {
+      window.location.replace("https://www.twitch.tv")
+    } 
+  } else if(searchinput.startsWith("gh") || searchinput.startsWith("github")){
+      if(searchinput.startsWith("gh:")) {
+        window.location.replace("https://github.com/search?q=" + searchinput.replace("gh:", ""))
+      } else if(searchinput.startsWith("github:")){
+          window.location.replace("https://github.com/search?q=" + searchinput.replace("github:", ""))
+        }
+        else {
+          window.location.replace("https://www.github.com")
+        }
+  } else if(searchinput.startsWith("netflix")) {
+    if(searchinput.startsWith("netflix:")) {
+      window.location.replace("https://www.netflix.com/search?q=" + searchinput.replace("netflix:", ""))
+    } else {
+      window.location.replace("https://www.netflix.com")
+    }
+  } else if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
+    window.location.replace(searchinput)
+  } else {
+    window.location.replace("https://www.google.com/search?q=" + searchinput)
+  }
 })
 
 document.onkeypress = function(e) {
