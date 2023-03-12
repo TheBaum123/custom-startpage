@@ -1,0 +1,14 @@
+body {
+    background-color: grey;
+}
+
+input {
+    margin: 3vh;
+    border: none;
+    text-align: center;
+    transition: 250ms;
+}
+
+input:focus {
+    transform: scale(2);
+}

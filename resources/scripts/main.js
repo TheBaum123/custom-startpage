@@ -5,11 +5,20 @@ const timeID = setInterval(clockAndDateUpdate, 1000);
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
   document.body.style.backgroundSize = "cover"
+  if(localStorage.getItem("bg-color") != null) {
+    document.querySelector(":root").style.setProperty("--bg-color", localStorage.getItem("bg-color"))
+  }
+  if(localStorage.getItem("focused-color") != null) {
+    document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("focused-color"))
+  }
+  if(localStorage.getItem("highlight-color") != null) {
+    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight color"))
+  }
 }
 
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
-  console.log(searchinput)
+  let splitsearchinput = searchinput.split(" ")
   if(searchinput.startsWith("reddit:")) {
     window.location.assign("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
   } else {
@@ -36,42 +45,92 @@ document.getElementById("searchbox").addEventListener("change", function() {
     if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
     window.location.assign(searchinput)
   } else {
-    switch(String(searchinput)) {
-      case 'reddit':
-        window.location.assign("https://www.reddit.com")
-        break
-      case 'yt':
-        window.location.assign("https://www.youtube.com")
-        break
-      case 'youtube':
-        window.location.assign("https://www.youtube.com")
-        break
-      case 'twitch':
-        window.location.assign("https://www.twitch.tv")
-        break
-      case 'gh':
-        window.location.assign("https://www.github.com")
-        break
-      case 'github':
-        window.location.assign("https://www.github.com")
-        break
-      case 'netflix':
-        window.location.assign("https://www.netflix.com")
-        break
-      case 'edclub':
-        window.location.assign("https://www.typingclub.com/")
-        break
-      case 'monkeytype':
-        window.location.assign("https://monkeytype.com")
-        break
-      case 'ztype':
-        window.location.assign("https://zty.pe/")
-        break
-      default:
-        window.location.assign("https://www.google.com/search?q=" + searchinput)
-        break
+    if(searchinput.startsWith(":")) {
+      internalCommand(splitsearchinput)
+    } else {
+      switch(String(searchinput)) {
+        case 'reddit':
+          window.location.assign("https://www.reddit.com")
+          break
+        case 'yt':
+          window.location.assign("https://www.youtube.com")
+          break
+        case 'youtube':
+          window.location.assign("https://www.youtube.com")
+          break
+        case 'twitch':
+          window.location.assign("https://www.twitch.tv")
+          break
+        case 'gh':
+          window.location.assign("https://www.github.com")
+          break
+        case 'github':
+          window.location.assign("https://www.github.com")
+          break
+        case 'netflix':
+          window.location.assign("https://www.netflix.com")
+          break
+        case 'edclub':
+          window.location.assign("https://www.typingclub.com/")
+          break
+        case 'monkeytype':
+          window.location.assign("https://monkeytype.com")
+          break
+        case 'ztype':
+          window.location.assign("https://zty.pe/")
+          break
+        default:
+          if(searchinput == "") {
+            break
+          }
+          window.location.assign("https://www.google.com/search?q=" + searchinput)
+          break
+  } 
     }}}}}}}
 })
+
+function internalCommand(command) {
+  let commandToDo = command[0].replace(":", "")
+  switch(commandToDo) {
+    case "config":
+    case "conf":
+      if(command[1] == "bg-color") {
+        if(command[2] == "default") {
+          document.querySelector(":root").style.setProperty("--bg-color", "#2B3D41BF")
+          localStorage.removeItem("bg-color")
+        } else {
+          document.querySelector(":root").style.setProperty("--bg-color", command[2])
+        localStorage.setItem("bg-color", command[2])
+        }
+        } else if(command[1] == "focused-color") {
+          if(command[2] == "default") {
+            document.querySelector(":root").style.setProperty("--focused-color", "#4C5F6BBF")
+            localStorage.removeItem("focused-color")
+          } else {
+            document.querySelector(":root").style.setProperty("--focused-color", command[2])
+            localStorage.setItem("focused-color", command[2])
+          }
+        } else if(command[1] == "highlight-color") {
+          if(command[2] == "default") {
+            document.querySelector(":root").style.setProperty("--highlight-color", "#A37774FF")
+            localStorage.removeItem("highlight-color")
+          } else {
+            document.querySelector(":root").style.setProperty("--highlight-color", command[2])
+            localStorage.setItem("highlight-color", command[2])
+          }
+        } else if(command[1] == "default") {
+          localStorage.removeItem("bg-color")
+          localStorage.removeItem("focused-color")
+          window.location.reload()
+        }
+      break
+    case "gui":
+      window.location.assign("config.html")
+      break
+    default:
+      document.getElementById("searchbox").value = "command unknown"
+  }
+}
 
 document.onkeypress = function(e) {
   if (document.activeElement.id != "searchbox") {
