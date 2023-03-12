@@ -5,29 +5,25 @@ This is the place where I host my custom startpage for my browser so that its ea
 # Search "shortcuts"
 Using the search bar, you are able to search google, but also do some other things which are:
 
-open reddit by entering: "reddit"
-
-open youtube by entering: "youtube" or "yt"
-
-open twitch by entering: "twitch"
-
-open github by entering: "github" or "gh"
-
-open netflix by entering: "netflix"
-
----
-search reddit by entering: "reddit:" followed by your search query
-
-search youtube by entering: "youtube:" followed by your search query
-
-search twitch by entering: "twitch:" followed by your search query
-
-search github by entering: "github:" followed by your search query
-
-search netflix by entering: "netflix:" followed by your search query
+Opening the folowing sites by typing in theyre name:
+- reddit
+- youtube
+- twitch
+- github
+- netflix
+- monkeytype
+- edclub
+- ztype
 
 ---
-Notice: there are no spaces needed in between {site:}{your search query} which means you can for example search `github:TheBaum123` to search github for "TheBaum123"
+You can type {Sitename}:{Searchquery} to search on the folowing sites:
+- reddit
+- youtube
+- twitch
+- github
+- netflix
+
+> **there are no spaces needed in between {site:}{your search query}** which means you can for example search `github:TheBaum123` to search github for "TheBaum123"
 
 ---
 # Credits
