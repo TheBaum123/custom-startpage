@@ -64,7 +64,7 @@ function clockAndDateUpdate() {
   let hours = today.getHours()
   let minutes = today.getMinutes()
   let seconds = today.getSeconds()
-  let days = today.getDay()
+  let days = today.getDate()
   let month = today.getMonth();
   let year = today.getFullYear();
   let clockOutput = correctNumber(hours) + " | " + correctNumber(minutes) + " | " + correctNumber(seconds)
