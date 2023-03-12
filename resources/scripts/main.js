@@ -9,47 +9,68 @@ function init() {
 
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
-  if(searchinput.startsWith("reddit")) {
-    if(searchinput.startsWith("reddit:")) {
-      window.location.replace("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
-    } else {
-      window.location.replace("https://www.reddit.com")
-    }
-  } else if(searchinput.startsWith("yt") || searchinput.startsWith("youtube")){
-      if(searchinput.startsWith("yt:")) {
-        window.location.replace("https://www.youtube.com/results?search_query=" + searchinput.replace("yt:", ""))
-      } else if(searchinput.startsWith("youtube:")){
-          window.location.replace("https://www.youtube.com/results?search_query=" + searchinput.replace("youtube:", ""))
-        }
-        else {
-          window.location.replace("https://www.youtube.com")
-        }
-  } else if(searchinput.startsWith("twitch")) {
-    if(searchinput.startsWith("twitch:")) {
-      window.location.replace("https://www.twitch.tv/search?term=" + searchinput.replace("twitch:", ""))
-    } else {
-      window.location.replace("https://www.twitch.tv")
-    } 
-  } else if(searchinput.startsWith("gh") || searchinput.startsWith("github")){
-      if(searchinput.startsWith("gh:")) {
-        window.location.replace("https://github.com/search?q=" + searchinput.replace("gh:", ""))
-      } else if(searchinput.startsWith("github:")){
-          window.location.replace("https://github.com/search?q=" + searchinput.replace("github:", ""))
-        }
-        else {
-          window.location.replace("https://www.github.com")
-        }
-  } else if(searchinput.startsWith("netflix")) {
-    if(searchinput.startsWith("netflix:")) {
-      window.location.replace("https://www.netflix.com/search?q=" + searchinput.replace("netflix:", ""))
-    } else {
-      window.location.replace("https://www.netflix.com")
-    }
-  } else if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
-    window.location.replace(searchinput)
+  console.log(searchinput)
+  if(searchinput.startsWith("reddit:")) {
+    window.location.assign("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
   } else {
-    window.location.replace("https://www.google.com/search?q=" + searchinput)
-  }
+    if(searchinput.startsWith("yt:") || searchinput.startsWith("youtube:")) {
+    if(searchinput.startsWith("yt:")) {
+        window.location.assign("https://www.youtube.com/results?search_query=" + searchinput.replace("yt:", ""))
+      } else if(searchinput.startsWith("youtube:")){
+          window.location.assign("https://www.youtube.com/results?search_query=" + searchinput.replace("youtube:", ""))
+        }
+  } else {
+    if(searchinput.startsWith("twitch:")) {
+    window.location.assign("https://www.twitch.tv/search?term=" + searchinput.replace("twitch:", ""))
+  } else {
+    if(searchinput.startsWith("gh:") || searchinput.startsWith("github:")) {
+    if(searchinput.startsWith("gh:")) {
+        window.location.assign("https://github.com/search?q=" + searchinput.replace("gh:", ""))
+      } else if(searchinput.startsWith("github:")){
+          window.location.assign("https://github.com/search?q=" + searchinput.replace("github:", ""))
+        }
+  } else {
+    if(searchinput.startsWith("netflix:")) {
+    window.location.assign("https://www.netflix.com/search?q=" + searchinput.replace("netflix:", ""))
+  } else {
+    if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
+    window.location.assign(searchinput)
+  } else {
+    switch(String(searchinput)) {
+      case 'reddit':
+        window.location.assign("https://www.reddit.com")
+        break
+      case 'yt':
+        window.location.assign("https://www.youtube.com")
+        break
+      case 'youtube':
+        window.location.assign("https://www.youtube.com")
+        break
+      case 'twitch':
+        window.location.assign("https://www.twitch.tv")
+        break
+      case 'gh':
+        window.location.assign("https://www.github.com")
+        break
+      case 'github':
+        window.location.assign("https://www.github.com")
+        break
+      case 'netflix':
+        window.location.assign("https://www.netflix.com")
+        break
+      case 'edclub':
+        window.location.assign("https://www.typingclub.com/")
+        break
+      case 'monkeytype':
+        window.location.assign("https://monkeytype.com")
+        break
+      case 'ztype':
+        window.location.assign("https://zty.pe/")
+        break
+      default:
+        window.location.assign("https://www.google.com/search?q=" + searchinput)
+        break
+    }}}}}}}
 })
 
 document.onkeypress = function(e) {
