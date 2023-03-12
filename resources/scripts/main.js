@@ -80,6 +80,9 @@ document.getElementById("searchbox").addEventListener("change", function() {
           window.location.assign("https://zty.pe/")
           break
         default:
+          if(searchinput == "") {
+            break
+          }
           window.location.assign("https://www.google.com/search?q=" + searchinput)
           break
   } 
@@ -115,15 +118,15 @@ function internalCommand(command) {
             document.querySelector(":root").style.setProperty("--highlight-color", command[2])
             localStorage.setItem("highlight-color", command[2])
           }
-        }
-        
-        else if(command[1] == "default") {
+        } else if(command[1] == "default") {
           localStorage.removeItem("bg-color")
           localStorage.removeItem("focused-color")
           window.location.reload()
         }
       break
-      
+    case "gui":
+      window.location.assign("config.html")
+      break
     default:
       document.getElementById("searchbox").value = "command unknown"
   }

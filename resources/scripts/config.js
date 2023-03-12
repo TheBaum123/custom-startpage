@@ -10,3 +10,18 @@ function init() {
     highlightColorInput.value = localStorage.getItem("highlight-color")
     highlightColorInput.style.setProperty("background-color", localStorage.getItem("highlight-color"))
 }
+
+bgColorInput.addEventListener("change", function() {
+    localStorage.setItem("bg-color", bgColorInput.value)
+    window.location.reload()
+})
+
+focusedColorInput.addEventListener("change", function() {
+    localStorage.setItem("focused-color", focusedColorInput.value)
+    window.location.reload()
+})
+
+highlightColorInput.addEventListener("change", function() {
+    localStorage.setItem("highlight-color", highlightColorInput.value)
+    window.location.reload()
+})
