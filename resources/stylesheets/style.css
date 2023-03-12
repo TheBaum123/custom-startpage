@@ -1,3 +1,10 @@
+:root {
+    --main-bg-color: rgba(43, 61, 65, 0.75);
+    --secondary-bg-color: rgba(76, 95, 107, 0.75);
+    --text-color: rgba(224, 226, 219, 1);
+    --highlight-color: rgba(163, 119, 116, 1);
+}
+
 body {
     width: 100vw;
     height: 100vh;
@@ -7,7 +14,7 @@ body {
 }
 
 #container {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--main-bg-color);
     min-width: 50vw;
     min-height: 22vh;
     width: fit-content;
@@ -30,7 +37,7 @@ body {
 }
 
 #clock-container>label {
-    color: white;
+    color: var(--text-color);
     font-size: 2vw;
     text-align: center;
 }
@@ -46,22 +53,23 @@ body {
     top: 35vh;
     left: 50vw;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--main-bg-color);
     border: 0;
     height: 2vh;
     width: 30vw;
     border-radius: 1vh;
     text-align: center;
-    color: white;
+    color: var(--text-color);
     font-size: 1.75vh;
     transition: 500ms;
     backdrop-filter: blur(5px);
+    padding: 0.5vh;
 }
 
 #searchbox:focus {
     outline: none;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--secondary-bg-color);
 }
 
 #bookmarks {
@@ -82,14 +90,9 @@ body {
     transform: translateX(-50%);
 }
 
-
-#bookmarks>*>a:hover::before {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
 #bookmarks>*>a>ion-icon {
     font-size: 4vh;
-    color: white;
+    color: var(--text-color);
     margin: 0.5vh;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
     transition: 500ms;
@@ -98,17 +101,18 @@ body {
 #bookmarks>*>a>ion-icon:hover {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
     transform: scale(1.5);
+    color: var(--highlight-color);
 }
 
 #netflix-logo {
     height: 4vh;
     margin: 0.5vh;
-    filter: invert(1) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
+    filter: invert(95%) sepia(1%) saturate(776%) hue-rotate(35deg) brightness(97%) contrast(91%) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
     transition: 500ms;
 }
 
 #netflix-logo:hover {
-    filter: invert(1) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
+    filter: invert(50%) sepia(18%) saturate(667%) hue-rotate(315deg) brightness(98%) contrast(79%) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
     transform: scale(1.5);
 }
 
@@ -117,20 +121,25 @@ body {
     height: 2vh;
     width: 2vw;
     top: 35.25vh;
-    left: 63.5vw;
+    left: 64vw;
     transform: translate(-50%, -50%);
 }
 
 #searchbutton>ion-icon {
-    color: white;
+    color: var(--text-color);
     font-size: 1.5vh;
+    transition: 100ms;
+}
+
+#searchbutton>ion-icon:hover {
+    color: var(--highlight-color);
 }
 
 #seperator {
     position: absolute;
     top: 35vh;
     left: 62vw;
-    font-size: 2.25vh;
-    color: white;
+    font-size: 3.2vh;
+    color: var(--text-color);
     transform: translate(-50%, -60%);
 }
