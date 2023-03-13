@@ -1,6 +1,7 @@
 // TODO: Convert hours minutes seconds and days into two digit numbers
 
 const timeID = setInterval(clockAndDateUpdate, 1000);
+let bookmarks = { }
 
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
@@ -119,9 +120,10 @@ function internalCommand(command) {
             localStorage.setItem("highlight-color", command[2])
           }
         } else if(command[1] == "default") {
-          localStorage.removeItem("bg-color")
-          localStorage.removeItem("focused-color")
+          localStorage.clear()
           window.location.reload()
+        } else if(command[1] == "bookmarks" || command[1] == "bookmark") {
+          editBookmarks(command)
         }
       break
     case "gui":
@@ -130,6 +132,22 @@ function internalCommand(command) {
     default:
       document.getElementById("searchbox").value = "command unknown"
   }
+}
+
+function editBookmarks(commandInput) {
+  if(commandInput[2] == "add") {
+    let uuid = crypto.randomUUID()
+    bookmarks[uuid] = [commandInput[3], commandInput[4], commandInput[5]]
+  } else if(commandInput[3] == "default") {
+    bookmarks.clear
+  }
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+}
+
+function readBookmarks() {
+  let temp = JSON.parse(JSON.stringify(localStorage.getItem("bookmarks")))
+  let bookmarks = JSON.parse(temp)
+  console.log(bookmarks)
 }
 
 document.onkeypress = function(e) {
