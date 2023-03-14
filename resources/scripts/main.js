@@ -1,5 +1,3 @@
-// TODO: Convert hours minutes seconds and days into two digit numbers
-
 const timeID = setInterval(clockAndDateUpdate, 1000);
 let bookmarks = { }
 
@@ -138,16 +136,20 @@ function editBookmarks(commandInput) {
   if(commandInput[2] == "add") {
     let uuid = crypto.randomUUID()
     bookmarks[uuid] = [commandInput[3], commandInput[4], commandInput[5]]
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+    document.getElementById("searchbox").value = "bookmark saved"
+    setTimeout(() => {
+      document.getElementById("searchbox").value = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
+      console.log(commandInput)
+    }, 1000);
   } else if(commandInput[3] == "default") {
     bookmarks.clear
   }
-  localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
 }
 
 function readBookmarks() {
-  let temp = JSON.parse(JSON.stringify(localStorage.getItem("bookmarks")))
-  let bookmarks = JSON.parse(temp)
-  console.log(bookmarks)
+  let temp = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))))
+  console.log(temp)
 }
 
 document.onkeypress = function(e) {
