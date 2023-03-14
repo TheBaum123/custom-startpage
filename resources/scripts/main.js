@@ -11,7 +11,10 @@ function init() {
     document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("focused-color"))
   }
   if(localStorage.getItem("highlight-color") != null) {
-    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight color"))
+    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
+  }
+  if(localStorage.getItem("text-color") != null) {
+    document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
   }
 }
 
@@ -116,6 +119,14 @@ function internalCommand(command) {
           } else {
             document.querySelector(":root").style.setProperty("--highlight-color", command[2])
             localStorage.setItem("highlight-color", command[2])
+          } 
+        } else if(command[1] == "text-color") {
+          if(command[2] == "default") {
+            document.querySelector(":root").style.setProperty("--text-color", "#E0E2DBFF")
+            localStorage.removeItem("text-color")
+          } else {
+            document.querySelector(":root").style.setProperty("--text-color", command[2])
+            localStorage.setItem("text-color", command[2])
           }
         } else if(command[1] == "default") {
           localStorage.clear()
