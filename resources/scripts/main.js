@@ -1,5 +1,3 @@
-// TODO: Convert hours minutes seconds and days into two digit numbers
-
 const timeID = setInterval(clockAndDateUpdate, 1000);
 
 function init() {
