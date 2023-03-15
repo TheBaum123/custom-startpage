@@ -2,6 +2,7 @@ let bgColorInput = document.getElementById("bg-color")
 let focusedColorInput = document.getElementById("focused-color")
 let highlightColorInput = document.getElementById("highlight-color")
 let textColorInput = document.getElementById("text-color")
+let savedBookmarks = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))));
 
 function init() {
     bgColorInput.value = localStorage.getItem("bg-color")
@@ -20,6 +21,13 @@ function init() {
     }
     if(localStorage.getItem("highlight-color") != null) {
     document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
+    }
+    let bookmarkUUIDS = Object.keys(savedBookmarks)
+    console.log(bookmarkUUIDS)
+    for(let i = 0; i < bookmarkUUIDS.length; i++) {
+        let currentBookmark = bookmarkUUIDS[i];
+        let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[1]][1], currentBookmark)
+        document.getElementById("uuid-selector").add(newOption)
     }
 }
 
