@@ -153,8 +153,8 @@ function editBookmarks(commandInput) {
       document.getElementById("searchbox").value = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
       console.log(commandInput)
     }, 1000);
-  } else if(commandInput[3] == "default") {
-    bookmarks.clear
+  } else if(commandInput[2] == "default") {
+    localStorage.removeItem("bookmarks")
   }
 }
 
