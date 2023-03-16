@@ -2,7 +2,7 @@ let bgColorInput = document.getElementById("bg-color")
 let focusedColorInput = document.getElementById("focused-color")
 let highlightColorInput = document.getElementById("highlight-color")
 let textColorInput = document.getElementById("text-color")
-let savedBookmarks = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))));
+let savedBookmarks = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))))
 
 function init() {
     bgColorInput.value = localStorage.getItem("bg-color")
@@ -30,10 +30,28 @@ function init() {
         document.getElementById("uuid-selector").add(newOption)
     }
     document.getElementById("uuid-selector").addEventListener("change", function() {
-        let selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
+        selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
         document.getElementById("name").value = selectedUUIDvalue[0]
         document.getElementById("link").value = selectedUUIDvalue[1]
         document.getElementById("logo").value = selectedUUIDvalue[2]
+    })
+    document.getElementById("name").addEventListener("change", function() {
+        selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
+        selectedUUIDvalue[0] = this.value
+        savedBookmarks[document.getElementById("uuid-selector").value] = selectedUUIDvalue
+        localStorage.setItem("bookmarks", JSON.stringify(savedBookmarks))
+    })
+    document.getElementById("link").addEventListener("change", function() {
+        selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
+        selectedUUIDvalue[1] = this.value
+        savedBookmarks[document.getElementById("uuid-selector").value] = selectedUUIDvalue
+        localStorage.setItem("bookmarks", JSON.stringify(savedBookmarks))
+    })
+    document.getElementById("logo").addEventListener("change", function() {
+        selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
+        selectedUUIDvalue[2] = this.value
+        savedBookmarks[document.getElementById("uuid-selector").value] = selectedUUIDvalue
+        localStorage.setItem("bookmarks", JSON.stringify(savedBookmarks))
     })
 }
 
