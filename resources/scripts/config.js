@@ -26,9 +26,15 @@ function init() {
     console.log(bookmarkUUIDS)
     for(let i = 0; i < bookmarkUUIDS.length; i++) {
         let currentBookmark = bookmarkUUIDS[i];
-        let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[1]][1], currentBookmark)
+        let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[i]][0], currentBookmark)
         document.getElementById("uuid-selector").add(newOption)
     }
+    document.getElementById("uuid-selector").addEventListener("change", function() {
+        let selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
+        document.getElementById("name").value = selectedUUIDvalue[0]
+        document.getElementById("link").value = selectedUUIDvalue[1]
+        document.getElementById("logo").value = selectedUUIDvalue[2]
+    })
 }
 
 bgColorInput.addEventListener("change", function() {
