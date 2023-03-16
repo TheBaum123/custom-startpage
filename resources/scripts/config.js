@@ -23,7 +23,6 @@ function init() {
     document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
     }
     let bookmarkUUIDS = Object.keys(savedBookmarks)
-    console.log(bookmarkUUIDS)
     for(let i = 0; i < bookmarkUUIDS.length; i++) {
         let currentBookmark = bookmarkUUIDS[i];
         let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[i]][0], currentBookmark)
