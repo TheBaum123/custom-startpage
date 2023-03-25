@@ -43,9 +43,12 @@ document.getElementById("searchbox").addEventListener("change", function() {
     if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
     window.location.assign(searchinput)
   } else {
-    if(searchinput.startsWith(":")) {
-      internalCommand(splitsearchinput)
-    } else {
+  if(searchinput.startsWith(":")) {
+    internalCommand(splitsearchinput)
+  } else {
+  if(searchinput.startsWith("spotify:")) {
+    window.location.assign("https://open.spotify.com/search/" + searchinput.replace("spotify:", ""))
+  } else{
       switch(String(searchinput)) {
         case 'reddit':
           window.location.assign("https://www.reddit.com")
@@ -77,14 +80,17 @@ document.getElementById("searchbox").addEventListener("change", function() {
         case 'ztype':
           window.location.assign("https://zty.pe/")
           break
+        case 'spotify':
+          window.location.assign("https://open.spotify.com/")
+          break
         default:
           if(searchinput == "") {
             break
           }
           window.location.assign("https://www.google.com/search?q=" + searchinput)
           break
-  } 
-    }}}}}}}
+  }
+    }}}}}}}}
 })
 
 function internalCommand(command) {

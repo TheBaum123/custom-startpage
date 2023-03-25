@@ -19,6 +19,7 @@ Opening the folowing sites by typing in theyre name:
 - monkeytype
 - edclub
 - ztype
+- spotify
 
 ---
 You can type {Sitename}:{Searchquery} to search on the folowing sites:
@@ -27,6 +28,7 @@ You can type {Sitename}:{Searchquery} to search on the folowing sites:
 - twitch
 - github
 - netflix
+- spotify
 
 > **there are no spaces needed in between {site:}{your search query}** which means you can for example search `github:TheBaum123` to search github for "TheBaum123"
 
