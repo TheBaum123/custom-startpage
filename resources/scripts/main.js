@@ -1,5 +1,8 @@
 const timeID = setInterval(clockAndDateUpdate, 1000)
 const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+const validIPwithPort = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/g
+const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
+const validDirectLinks = ["reddit", "youtube", "yt", "twitch", "ttv", "github", "gh", "netflix", "edclub", "typingclub", "monkeytype", "ztype"]
 let bookmarks = { }
 
 function init() {
@@ -29,86 +32,86 @@ function isIPvalid(IP) {
 
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
-  let splitsearchinput = searchinput.split(" ")
-  if(searchinput.startsWith("reddit:")) {
-    window.location.assign("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
-  } else {
-    if(searchinput.startsWith("yt:") || searchinput.startsWith("youtube:")) {
-    if(searchinput.startsWith("yt:")) {
-        window.location.assign("https://www.youtube.com/results?search_query=" + searchinput.replace("yt:", ""))
-      } else if(searchinput.startsWith("youtube:")){
-          window.location.assign("https://www.youtube.com/results?search_query=" + searchinput.replace("youtube:", ""))
-        }
-  } else {
-    if(searchinput.startsWith("twitch:")) {
-    window.location.assign("https://www.twitch.tv/search?term=" + searchinput.replace("twitch:", ""))
-  } else {
-    if(searchinput.startsWith("gh:") || searchinput.startsWith("github:")) {
-    if(searchinput.startsWith("gh:")) {
-        window.location.assign("https://github.com/search?q=" + searchinput.replace("gh:", ""))
-      } else if(searchinput.startsWith("github:")){
-          window.location.assign("https://github.com/search?q=" + searchinput.replace("github:", ""))
-        }
-  } else {
-    if(searchinput.startsWith("netflix:")) {
-    window.location.assign("https://www.netflix.com/search?q=" + searchinput.replace("netflix:", ""))
-  } else {
-    if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
-    window.location.assign(searchinput)
-  } else {
-  if(searchinput.startsWith(":")) {
-    internalCommand(splitsearchinput)
-  } else {
-  if(searchinput.startsWith("spotify:")) {
-    window.location.assign("https://open.spotify.com/search/" + searchinput.replace("spotify:", ""))
-  } else { if(isIPvalid(searchinput)) {
+  if(searchinput.match(searchSite)) {
+    let split = searchinput.split(":")
+    searchSiteFor(split[0].toLowerCase(), split[1])
+  } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort) /* TODO: fix this regex */ ) {
     window.location.assign("http://" + searchinput)
+  } else if(validDirectLinks.includes(searchinput.toLowerCase(), 0)) {
+    directLink(searchinput.toLowerCase())
+  } else if(searchinput.startsWith(":")) {
+    internalCommand(searchinput)
   } else {
-      switch(String(searchinput)) {
-        case 'reddit':
-          window.location.assign("https://www.reddit.com")
-          break
-        case 'yt':
-          window.location.assign("https://www.youtube.com")
-          break
-        case 'youtube':
-          window.location.assign("https://www.youtube.com")
-          break
-        case 'twitch':
-          window.location.assign("https://www.twitch.tv")
-          break
-        case 'gh':
-          window.location.assign("https://www.github.com")
-          break
-        case 'github':
-          window.location.assign("https://www.github.com")
-          break
-        case 'netflix':
-          window.location.assign("https://www.netflix.com")
-          break
-        case 'edclub':
-          window.location.assign("https://www.typingclub.com/")
-          break
-        case 'monkeytype':
-          window.location.assign("https://monkeytype.com")
-          break
-        case 'ztype':
-          window.location.assign("https://zty.pe/")
-          break
-        case 'spotify':
-          window.location.assign("https://open.spotify.com/")
-          break
-        default:
-          if(searchinput == "") {
-            break
-          }
-          window.location.assign("https://www.google.com/search?q=" + searchinput)
-          break
+    window.location.assign("https://www.google.com/search?q=" + searchinput)
   }
-    }}}}}}}}}
 })
 
-function internalCommand(command) {
+function searchSiteFor(site, query) {
+  switch(site) {
+    case "reddit":
+      window.location.assign("https://www.reddit.com/search?q=" + query)
+      break
+    case "youtube":
+    case "yt":
+      console.log("youtube search: " + query)
+      break
+    case "twitch":
+    case "ttv":
+      window.location.assign("https://www.twitch.tv/search?term=" + query)
+      break
+    case "gh":
+    case "github":
+      window.location.assign("https://www.github.com/search?q=" + query)
+      break
+    case "netflix":
+      window.location.assign("https://www.netflix.com/search?q=" + query)
+      break
+    case "spotify":
+      window.location.assign("https://open.spotify.com/search" + query)
+      break
+    default:
+      window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
+      break
+  }
+}
+
+function directLink(site) {
+  switch(site) {
+    case "reddit":
+      window.location.assign("https://www.reddit.com/")
+      break
+    case "yt":
+    case "youtube":
+      window.location.assign("https://www.youtube.com/")
+      break
+    case "twitch":
+    case "ttv":
+      window.location.assign("https://www.twitch.tv/")
+      break
+    case "github":
+    case "gh":
+      window.location.assign("https://github.com/")
+      break
+    case "netflix":
+      window.location.assign("https://www.netflix.com/")
+      break
+    case "edclub":
+    case "typingclub":
+      window.location.assign("https://www.typingclub.com/")
+      break
+    case "monkeytype":
+      window.location.assign("https://monkeytype.com/")
+      break
+    case "ztype":
+      window.location.assign("https://zty.pe/")
+      break
+    default:
+      break
+  }
+}
+
+function internalCommand(input) {
+  let command = input.split(" ")
   let commandToDo = command[0].replace(":", "")
   switch(commandToDo) {
     case "config":
@@ -154,6 +157,10 @@ function internalCommand(command) {
       break
     case "gui":
       window.location.assign("config.html")
+      break
+    case "help":
+    case "h":
+      window.location.assign("https://github.com/TheBaum123/custom-startpage/wiki")
       break
     default:
       document.getElementById("searchbox").value = "command unknown"
