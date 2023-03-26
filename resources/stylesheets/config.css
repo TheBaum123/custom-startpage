@@ -1,14 +1,59 @@
-body {
-    background-color: grey;
+:root {
+    --bg-color: #2B3D41Bf;
+    --focused-color: #4C5F6BBF;
+    --text-color: #E0E2DBFF;
+    --highlight-color: #A37774FF;
 }
 
-input {
-    margin: 3vh;
-    border: none;
-    text-align: center;
-    transition: 250ms;
+label {
+    color: var(--text-color);
 }
 
-input:focus {
-    transform: scale(2);
+#color-config {
+    background-color: var(--bg-color);
+    padding: 1vh;
+    border: var(--bg-color) 1vw solid;
+    border-radius: 1vw;
+    display: grid;
+    grid-template-areas:
+        'bg-label bg-input'
+        'focused-label focused-input'
+        'highlight-label highlight-input'
+        'text-label text-input';
+    gap: 25px;
+    background-color: var(--bg-color);
 }
+
+#bookmark-config {
+    background-color: var(--bg-color);
+    padding: 1vh;
+    border: var(--bg-color) 1vw solid;
+    border-radius: 1vw;
+    display: grid;
+    grid-template-areas:
+        'empty1 uuid-selector empty2'
+        'name-label link-label logo-label'
+        'name-input link-input logo-input'
+        'empty3 delete-button empty4';
+    gap: 25px;
+    background-color: var(--bg-color);
+    margin-top: 1vh;
+}
+
+#bg-label { grid-area: bg-label;}
+#bg-input { grid-area: bg-input;}
+#focused-label { grid-area: focused-label;}
+#focused-input { grid-area: focused-input;}
+#highlight-label { grid-area: highlight-label;}
+#highlight-input { grid-area: highlight-input;}
+#text-label { grid-area: text-label;}
+#text-input { grid-area: text-input;}
+
+#uuid-selector { grid-area: uuid-selector;}
+#name-label { grid-area: name-label;}
+#name { grid-area: name-input;}
+#link-label { grid-area: link-label;}
+#link { grid-area: link-input;}
+#logo-label { grid-area: logo-label;}
+#logo { grid-area: logo-input;}
+#delete-bookmark-button { grid-area: delete-button;}

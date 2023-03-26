@@ -42,8 +42,9 @@ Clicking the settings item in the bottom right will take you to a configuration 
 You can also chage some of the settings directly with built in commands:
 - `config default` - resets all of the config to default and clears locally saved data
 - `config bg-color {color}` - changes the background color to whatever you type instead of `{color}`
-- ~~ `config highlight-color {color}` - same thing, but for the color that is used for highlighting icons on hover ~~ - not currently working
+- `config highlight-color {color}` - same thing, but for the color that is used for highlighting icons on hover
 - `config focused-color {color}` - same thing, but for the color of the searchbar while typing
+- `config text-color {color}` -same thing, but for the text color
 
 # Credits
 Background images source:

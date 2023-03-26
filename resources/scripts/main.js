@@ -1,5 +1,6 @@
 const timeID = setInterval(clockAndDateUpdate, 1000)
 const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+let bookmarks = { }
 
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
@@ -11,7 +12,10 @@ function init() {
     document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("focused-color"))
   }
   if(localStorage.getItem("highlight-color") != null) {
-    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight color"))
+    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
+  }
+  if(localStorage.getItem("text-color") != null) {
+    document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
   }
 }
 
@@ -132,11 +136,20 @@ function internalCommand(command) {
           } else {
             document.querySelector(":root").style.setProperty("--highlight-color", command[2])
             localStorage.setItem("highlight-color", command[2])
+          } 
+        } else if(command[1] == "text-color") {
+          if(command[2] == "default") {
+            document.querySelector(":root").style.setProperty("--text-color", "#E0E2DBFF")
+            localStorage.removeItem("text-color")
+          } else {
+            document.querySelector(":root").style.setProperty("--text-color", command[2])
+            localStorage.setItem("text-color", command[2])
           }
         } else if(command[1] == "default") {
-          localStorage.removeItem("bg-color")
-          localStorage.removeItem("focused-color")
+          localStorage.clear()
           window.location.reload()
+        } else if(command[1] == "bookmarks" || command[1] == "bookmark") {
+          editBookmarks(command)
         }
       break
     case "gui":
@@ -145,6 +158,26 @@ function internalCommand(command) {
     default:
       document.getElementById("searchbox").value = "command unknown"
   }
+}
+
+function editBookmarks(commandInput) {
+  if(commandInput[2] == "add") {
+    let uuid = crypto.randomUUID()
+    bookmarks[uuid] = [commandInput[3], commandInput[4], commandInput[5]]
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+    document.getElementById("searchbox").value = "bookmark saved"
+    setTimeout(() => {
+      document.getElementById("searchbox").value = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
+      console.log(commandInput)
+    }, 1000);
+  } else if(commandInput[2] == "default") {
+    localStorage.removeItem("bookmarks")
+  }
+}
+
+function readBookmarks() {
+  let temp = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))))
+  console.log(temp)
 }
 
 document.onkeypress = function(e) {

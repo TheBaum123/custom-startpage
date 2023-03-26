@@ -11,14 +11,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
 </head>
 <body onload="init()">
-    <label>Background color (empty values will use the default): </label>
-    <input type="text" id="bg-color">
-    <br>
-    <label>Focused input color (empty values will use the default): </label>
-    <input type="text" id="focused-color">
-    <br>
-    <label>Highlight color (empty values will use the default): </label>
-    <input type="text" id="highlight-color">
-    <script src="resources/scripts/config.js"></script>
+    <div id="color-config">
+        <label id="bg-label">Background color (empty values will use the default): </label>
+        <input type="text" id="bg-color">
+        <label id="focused-label">Focused input color (empty values will use the default): </label>
+        <input type="text" id="focused-color">
+        <label id="highlight-label">Highlight color (empty values will use the default): </label>
+        <input type="text" id="highlight-color">
+        <label id="text-label">Text color (empty values will use the default)</label>
+        <input type="text" id="text-color">
+        <script src="resources/scripts/config.js"></script>
+    </div>
+    <div id="bookmark-config">
+        <select id="uuid-selector">
+            <option selected disabled value="">-- select uuid --</option>
+        </select>
+        <label id="name-label">Bookmark Name:</label>
+        <input type="text" id="name">
+        <label id="link-label">Bookmark link:</label>
+        <input type="text" id="link">
+        <label id="logo-label">Link to the logo of the Bookmark:</label>
+        <input type="text" id="logo">
+        <button id="delete-bookmark-button">Delete Bookmark</button>
+    </div>
+    </body>
 </body>
 </html>
