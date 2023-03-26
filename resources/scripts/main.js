@@ -1,4 +1,5 @@
-const timeID = setInterval(clockAndDateUpdate, 1000);
+const timeID = setInterval(clockAndDateUpdate, 1000)
+const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 let bookmarks = { }
 
 function init() {
@@ -15,6 +16,14 @@ function init() {
   }
   if(localStorage.getItem("text-color") != null) {
     document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
+  }
+}
+
+function isIPvalid(IP) {
+  if(IP.match(validIP)) {
+      return true
+  } else {
+    return false
   }
 }
 
@@ -47,9 +56,14 @@ document.getElementById("searchbox").addEventListener("change", function() {
     if(searchinput.startsWith("http://") || searchinput.startsWith("https://")) {
     window.location.assign(searchinput)
   } else {
-    if(searchinput.startsWith(":")) {
-      internalCommand(splitsearchinput)
-    } else {
+  if(searchinput.startsWith(":")) {
+    internalCommand(splitsearchinput)
+  } else {
+  if(searchinput.startsWith("spotify:")) {
+    window.location.assign("https://open.spotify.com/search/" + searchinput.replace("spotify:", ""))
+  } else { if(isIPvalid(searchinput)) {
+    window.location.assign("http://" + searchinput)
+  } else {
       switch(String(searchinput)) {
         case 'reddit':
           window.location.assign("https://www.reddit.com")
@@ -81,14 +95,17 @@ document.getElementById("searchbox").addEventListener("change", function() {
         case 'ztype':
           window.location.assign("https://zty.pe/")
           break
+        case 'spotify':
+          window.location.assign("https://open.spotify.com/")
+          break
         default:
           if(searchinput == "") {
             break
           }
           window.location.assign("https://www.google.com/search?q=" + searchinput)
           break
-  } 
-    }}}}}}}
+  }
+    }}}}}}}}}
 })
 
 function internalCommand(command) {
@@ -176,8 +193,8 @@ function clockAndDateUpdate() {
   let minutes = today.getMinutes()
   let seconds = today.getSeconds()
   let days = today.getDate()
-  let month = today.getMonth();
-  let year = today.getFullYear();
+  let month = today.getMonth()
+  let year = today.getFullYear()
   let clockOutput = correctNumber(hours) + " | " + correctNumber(minutes) + " | " + correctNumber(seconds)
   let dateOutput = correctNumber(days) + " / " + monthConversion(month) + "\n" + year
   document.getElementById("clock").innerHTML = clockOutput

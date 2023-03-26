@@ -1,5 +1,5 @@
 # Custom Startpage
-This is the place where I host my custom startpage for my browser so that its easyer to use on multiple browsers and devices. I don't really advise anyone to use this, since i didn't care abput customisability/configurability or anything else, but if you want to, you can still fork the repo and just edit the html to include your bookmarks or just use it if you want the same bookmarks as me.
+This is the place where I host my custom startpage for my browser so that its easyer to use on multiple browsers and devices. I don't really advise anyone to use this, since i dont realy have a lot of configuration options yet, but if you want to, you can still fork the repo and just edit the html to include your bookmarks or just use it if you want the same bookmarks as me.
 
 ---
 - [search "shorcuts"](https://github.com/TheBaum123/custom-startpage#search-shortcuts)
@@ -19,6 +19,7 @@ Opening the folowing sites by typing in theyre name:
 - monkeytype
 - edclub
 - ztype
+- spotify
 
 ---
 You can type {Sitename}:{Searchquery} to search on the folowing sites:
@@ -27,6 +28,7 @@ You can type {Sitename}:{Searchquery} to search on the folowing sites:
 - twitch
 - github
 - netflix
+- spotify
 
 > **there are no spaces needed in between {site:}{your search query}** which means you can for example search `github:TheBaum123` to search github for "TheBaum123"
 
