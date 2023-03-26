@@ -1,5 +1,6 @@
 const timeID = setInterval(clockAndDateUpdate, 1000)
 const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
+const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
 let bookmarks = { }
 
 function init() {
@@ -30,7 +31,11 @@ function isIPvalid(IP) {
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
   let splitsearchinput = searchinput.split(" ")
-  if(searchinput.startsWith("reddit:")) {
+  if(searchinput.match(searchSite)) {
+    let split = searchinput.split(":")
+    searchSiteFor(split[0], split[1])
+  }
+  /*if(searchinput.startsWith("reddit:")) {
     window.location.assign("https://www.reddit.com/search?q=" + searchinput.replace("reddit:", ""))
   } else {
     if(searchinput.startsWith("yt:") || searchinput.startsWith("youtube:")) {
@@ -105,8 +110,32 @@ document.getElementById("searchbox").addEventListener("change", function() {
           window.location.assign("https://www.google.com/search?q=" + searchinput)
           break
   }
-    }}}}}}}}}
+    }}}}}}}}}*/
 })
+
+function searchSiteFor(site, query) {
+  switch(site) {
+    case "spotify":
+      console.log("spotify search: " + query)
+      break
+    case "youtube":
+    case "YouTube":
+    case "yt":
+    case "YT":
+    case "YOUTUBE":
+      console.log("youtube search: " + query)
+      break
+    case "gh":
+    case "github":
+    case "GH":
+    case "GitHub":
+    case "GITHUB":
+      window.location.assign("https://www.github.com/search?q=" + query)
+      break
+    default:
+      window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
+  }
+}
 
 function internalCommand(command) {
   let commandToDo = command[0].replace(":", "")
