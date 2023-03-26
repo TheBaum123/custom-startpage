@@ -98,6 +98,10 @@ body {
     transition: 500ms;
 }
 
+#bookmarks>*>a {
+    text-decoration: none;
+}
+
 #bookmarks>*>a>ion-icon:hover {
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.75));
     transform: scale(1.5);
