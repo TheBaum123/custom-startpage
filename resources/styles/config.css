@@ -3,6 +3,7 @@
     --focused-color: #4C5F6BBF;
     --text-color: #E0E2DBFF;
     --highlight-color: #A37774FF;
+    overflow-x: hidden;
 }
 
 label {
@@ -47,7 +48,7 @@ label {
     'empty1 heading empty2'
     'empty1 selector empty2';
     height: 10vh;
-    width: 100vw;
+    gap: 1vh;
     background-color: var(--bg-color);
     border: var(--bg-color) 1vw solid;
     border-radius: 1vw;
