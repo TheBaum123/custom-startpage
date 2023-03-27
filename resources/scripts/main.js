@@ -27,7 +27,7 @@ function init() {
 
 function getAvailableSearchEngines() {
   const xhr = new XMLHttpRequest()
-  xhr.open("GET", "resources/scripts/availableSearchEngines.json")
+  xhr.open("GET", "resources/json/availableSearchEngines.json")
   xhr.send()
   xhr.responseType = "json"
   xhr.onload = () => {
