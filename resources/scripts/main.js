@@ -3,9 +3,9 @@ const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[
 const validIPwithPort = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/g
 const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
 const configInput = /(^[:][config][A-Za-z]+|^[:]gui|^[:]help)/gi
-const validDirectLinks = ["reddit", "youtube", "yt", "twitch", "ttv", "github", "gh", "netflix", "edclub", "typingclub", "monkeytype", "ztype", "spotify", "amazon", "az"]
 let bookmarks = { }
 let availableSearchEngines = { }
+let availableDirectLinks = { }
 
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
@@ -23,6 +23,7 @@ function init() {
     document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
   }
   getAvailableSearchEngines()
+  getAvailableDirectLinks()
 }
 
 function getAvailableSearchEngines() {
@@ -35,6 +36,20 @@ function getAvailableSearchEngines() {
       availableSearchEngines = xhr.response
     } else {
       availableSearchEngines = {"oh no, something went wrong":"oh no, something went wrong"}
+    }
+  }
+}
+
+function getAvailableDirectLinks() {
+  const xhr = new XMLHttpRequest()
+  xhr.open("GET", "resources/json/availableDirectLinks.json")
+  xhr.send()
+  xhr.responseType = "json"
+  xhr.onload = () => {
+    if(xhr.status == 200) {
+      availableDirectLinks = xhr.response
+    } else {
+      availableDirectLinks = {"oh no, something went wrong":"oh no, something went wrong"}
     }
   }
 }
@@ -55,8 +70,8 @@ document.getElementById("searchbox").addEventListener("change", function() {
     searchSiteFor(split[0].toLowerCase(), split[1])
   } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort)) {
     window.location.assign("http://" + searchinput)
-  } else if(validDirectLinks.includes(searchinput.toLowerCase(), 0)) {
-    directLink(searchinput.toLowerCase())
+  } else if(Object.keys(availableDirectLinks).includes(searchinput.toLowerCase())) {
+    window.location.assign(availableDirectLinks[searchinput.toLowerCase()])
   } else if(searchinput.match(configInput)) {
     internalCommand(searchinput)
   } else if(localStorage.getItem("selectedSearchEngine") == null) {
@@ -211,48 +226,6 @@ function monthConversion(month) {
       return ("November")
     case 12:
       return ("December")
-  }
-}
-
-function directLink(site) {
-  switch(site) {
-    case "reddit":
-      window.location.assign("https://www.reddit.com/")
-      break
-    case "yt":
-    case "youtube":
-      window.location.assign("https://www.youtube.com/")
-      break
-    case "twitch":
-    case "ttv":
-      window.location.assign("https://www.twitch.tv/")
-      break
-    case "github":
-    case "gh":
-      window.location.assign("https://github.com/")
-      break
-    case "netflix":
-      window.location.assign("https://www.netflix.com/")
-      break
-    case "edclub":
-    case "typingclub":
-      window.location.assign("https://www.typingclub.com/")
-      break
-    case "monkeytype":
-      window.location.assign("https://monkeytype.com/")
-      break
-    case "ztype":
-      window.location.assign("https://zty.pe/")
-      break
-    case "spotify":
-      window.location.assign("https://open.spotify.com/")
-      break
-    case "amazon":
-    case "az":
-      window.location.assign("https://www.amazon.com/")
-      break
-    default:
-      break
   }
 }
 
