@@ -7,6 +7,7 @@
 
 label {
     color: var(--text-color);
+    font-family: 'Roboto Mono', monospace;
 }
 
 #color-config {
@@ -40,6 +41,35 @@ label {
     margin-top: 1vh;
 }
 
+#search-engine-config {
+    display: grid;
+    grid-template-areas: 
+    'empty1 heading empty2'
+    'empty1 selector empty2';
+    height: 10vh;
+    width: 100vw;
+    background-color: var(--bg-color);
+    border: var(--bg-color) 1vw solid;
+    border-radius: 1vw;
+    margin-top: 1vh;
+}
+
+#search-engine-heading {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2vh;
+}
+
+#search-engine-selector {
+    background-color: var(--focused-color);
+    color: var(--text-color);
+    text-align: center;
+    border: var(--highlight-color) 0.5vw solid;
+    border-radius: 1vw;
+    font-size: 2vh;
+}
+
 #bg-label { grid-area: bg-label;}
 #bg-input { grid-area: bg-input;}
 #focused-label { grid-area: focused-label;}
@@ -57,3 +87,6 @@ label {
 #logo-label { grid-area: logo-label;}
 #logo { grid-area: logo-input;}
 #delete-bookmark-button { grid-area: delete-button;}
+
+#search-engine-heading { grid-area: heading;}
+#search-engine-selector { grid-area: selector;}
