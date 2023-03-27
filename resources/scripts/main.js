@@ -5,6 +5,7 @@ const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
 const configInput = /(^[:][config][A-Za-z]+|^[:]gui|^[:]help)/gi
 const validDirectLinks = ["reddit", "youtube", "yt", "twitch", "ttv", "github", "gh", "netflix", "edclub", "typingclub", "monkeytype", "ztype", "spotify", "amazon", "az"]
 let bookmarks = { }
+let availableSearchEngines = { }
 
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
@@ -21,6 +22,21 @@ function init() {
   if(localStorage.getItem("text-color") != null) {
     document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
   }
+  getAvailableSearchEngines()
+}
+
+function getAvailableSearchEngines() {
+  const xhr = new XMLHttpRequest()
+  xhr.open("GET", "resources/scripts/availableSearchEngines.json")
+  xhr.send()
+  xhr.responseType = "json"
+  xhr.onload = () => {
+    if(xhr.status == 200) {
+      availableSearchEngines = xhr.response
+    } else {
+      availableSearchEngines = {"oh no, something went wrong":"oh no, something went wrong"}
+    }
+  }
 }
 
 function isIPvalid(IP) {
@@ -33,6 +49,7 @@ function isIPvalid(IP) {
 
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
+  if(searchinput == "") {return}
   if(searchinput.match(searchSite)) {
     let split = searchinput.split(":")
     searchSiteFor(split[0].toLowerCase(), split[1])
@@ -42,8 +59,10 @@ document.getElementById("searchbox").addEventListener("change", function() {
     directLink(searchinput.toLowerCase())
   } else if(searchinput.match(configInput)) {
     internalCommand(searchinput)
+  } else if(localStorage.getItem("selectedSearchEngine") == null) {
+    window.location.assign(availableSearchEngines.duckduckgo + searchinput)
   } else {
-    window.location.assign("https://www.google.com/search?q=" + searchinput)
+    window.location.assign(availableSearchEngines[localStorage.getItem("selectedSearchEngine")] + searchinput)
   }
 })
 
@@ -53,15 +72,17 @@ function internalCommand(input) {
   switch(commandToDo) {
     case "config":
     case "conf":
-      if(command[1] == "bg-color") {
-        if(command[2] == "default") {
-          document.querySelector(":root").style.setProperty("--bg-color", "#2B3D41BF")
-          localStorage.removeItem("bg-color")
-        } else {
-          document.querySelector(":root").style.setProperty("--bg-color", command[2])
-        localStorage.setItem("bg-color", command[2])
-        }
-        } else if(command[1] == "focused-color") {
+      switch(command[1]) {
+        case "bg-color":
+          if(command[2] == "default") {
+            document.querySelector(":root").style.setProperty("--bg-color", "#2B3D41BF")
+            localStorage.removeItem("bg-color")
+          } else {
+            document.querySelector(":root").style.setProperty("--bg-color", command[2])
+            localStorage.setItem("bg-color", command[2])
+          }
+          break
+        case "focused-color":
           if(command[2] == "default") {
             document.querySelector(":root").style.setProperty("--focused-color", "#4C5F6BBF")
             localStorage.removeItem("focused-color")
@@ -69,15 +90,17 @@ function internalCommand(input) {
             document.querySelector(":root").style.setProperty("--focused-color", command[2])
             localStorage.setItem("focused-color", command[2])
           }
-        } else if(command[1] == "highlight-color") {
+          break
+        case "highlight-color":
           if(command[2] == "default") {
             document.querySelector(":root").style.setProperty("--highlight-color", "#A37774FF")
             localStorage.removeItem("highlight-color")
           } else {
             document.querySelector(":root").style.setProperty("--highlight-color", command[2])
             localStorage.setItem("highlight-color", command[2])
-          } 
-        } else if(command[1] == "text-color") {
+          }
+          break
+        case "text-color":
           if(command[2] == "default") {
             document.querySelector(":root").style.setProperty("--text-color", "#E0E2DBFF")
             localStorage.removeItem("text-color")
@@ -85,12 +108,21 @@ function internalCommand(input) {
             document.querySelector(":root").style.setProperty("--text-color", command[2])
             localStorage.setItem("text-color", command[2])
           }
-        } else if(command[1] == "default") {
+          break
+        case "bookmark":
+        case "bookmarks":
+          editBookmarks(command)
+          break
+        case "searchengine":
+        case "search":
+          if(Object.keys(availableSearchEngines).includes(command[2])) {
+            localStorage.setItem("selectedSearchEngine", command[2])
+          }
+        case "default":
           localStorage.clear()
           window.location.reload()
-        } else if(command[1] == "bookmarks" || command[1] == "bookmark") {
-          editBookmarks(command)
-        }
+          break
+      }
       break
     case "gui":
       window.location.assign("config.html")
