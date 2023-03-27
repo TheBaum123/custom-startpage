@@ -47,70 +47,6 @@ document.getElementById("searchbox").addEventListener("change", function() {
   }
 })
 
-function searchSiteFor(site, query) {
-  switch(site) {
-    case "reddit":
-      window.location.assign("https://www.reddit.com/search?q=" + query)
-      break
-    case "youtube":
-    case "yt":
-      console.log("youtube search: " + query)
-      break
-    case "twitch":
-    case "ttv":
-      window.location.assign("https://www.twitch.tv/search?term=" + query)
-      break
-    case "gh":
-    case "github":
-      window.location.assign("https://www.github.com/search?q=" + query)
-      break
-    case "netflix":
-      window.location.assign("https://www.netflix.com/search?q=" + query)
-      break
-    case "spotify":
-      window.location.assign("https://open.spotify.com/search" + query)
-      break
-    default:
-      window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
-      break
-  }
-}
-
-function directLink(site) {
-  switch(site) {
-    case "reddit":
-      window.location.assign("https://www.reddit.com/")
-      break
-    case "yt":
-    case "youtube":
-      window.location.assign("https://www.youtube.com/")
-      break
-    case "twitch":
-    case "ttv":
-      window.location.assign("https://www.twitch.tv/")
-      break
-    case "github":
-    case "gh":
-      window.location.assign("https://github.com/")
-      break
-    case "netflix":
-      window.location.assign("https://www.netflix.com/")
-      break
-    case "edclub":
-    case "typingclub":
-      window.location.assign("https://www.typingclub.com/")
-      break
-    case "monkeytype":
-      window.location.assign("https://monkeytype.com/")
-      break
-    case "ztype":
-      window.location.assign("https://zty.pe/")
-      break
-    default:
-      break
-  }
-}
-
 function internalCommand(input) {
   let command = input.split(" ")
   let commandToDo = command[0].replace(":", "")
@@ -243,5 +179,69 @@ function monthConversion(month) {
       return ("November")
     case 12:
       return ("December")
+  }
+}
+
+function directLink(site) {
+  switch(site) {
+    case "reddit":
+      window.location.assign("https://www.reddit.com/")
+      break
+    case "yt":
+    case "youtube":
+      window.location.assign("https://www.youtube.com/")
+      break
+    case "twitch":
+    case "ttv":
+      window.location.assign("https://www.twitch.tv/")
+      break
+    case "github":
+    case "gh":
+      window.location.assign("https://github.com/")
+      break
+    case "netflix":
+      window.location.assign("https://www.netflix.com/")
+      break
+    case "edclub":
+    case "typingclub":
+      window.location.assign("https://www.typingclub.com/")
+      break
+    case "monkeytype":
+      window.location.assign("https://monkeytype.com/")
+      break
+    case "ztype":
+      window.location.assign("https://zty.pe/")
+      break
+    default:
+      break
+  }
+}
+
+function searchSiteFor(site, query) {
+  switch(site) {
+    case "reddit":
+      window.location.assign("https://www.reddit.com/search?q=" + query)
+      break
+    case "youtube":
+    case "yt":
+      console.log("youtube search: " + query)
+      break
+    case "twitch":
+    case "ttv":
+      window.location.assign("https://www.twitch.tv/search?term=" + query)
+      break
+    case "gh":
+    case "github":
+      window.location.assign("https://www.github.com/search?q=" + query)
+      break
+    case "netflix":
+      window.location.assign("https://www.netflix.com/search?q=" + query)
+      break
+    case "spotify":
+      window.location.assign("https://open.spotify.com/search" + query)
+      break
+    default:
+      window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
+      break
   }
 }
