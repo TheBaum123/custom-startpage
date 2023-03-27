@@ -212,6 +212,10 @@ function directLink(site) {
     case "ztype":
       window.location.assign("https://zty.pe/")
       break
+    case "amazon":
+    case "az":
+      window.location.assign("https://www.amazon.com/")
+      break
     default:
       break
   }
@@ -239,6 +243,10 @@ function searchSiteFor(site, query) {
       break
     case "spotify":
       window.location.assign("https://open.spotify.com/search" + query)
+      break
+    case "amazon":
+    case "az":
+      window.location.assign("https://www.amazon.com/s?k=" + query)
       break
     default:
       window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
