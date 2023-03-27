@@ -3,7 +3,7 @@ const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[
 const validIPwithPort = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/g
 const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
 const configInput = /(^[:][config][A-Za-z]+|^[:]gui|^[:]help)/gi
-const validDirectLinks = ["reddit", "youtube", "yt", "twitch", "ttv", "github", "gh", "netflix", "edclub", "typingclub", "monkeytype", "ztype"]
+const validDirectLinks = ["reddit", "youtube", "yt", "twitch", "ttv", "github", "gh", "netflix", "edclub", "typingclub", "monkeytype", "ztype", "spotify", "amazon", "az"]
 let bookmarks = { }
 
 function init() {
@@ -212,6 +212,9 @@ function directLink(site) {
     case "ztype":
       window.location.assign("https://zty.pe/")
       break
+    case "spotify":
+      window.location.assign("https://open.spotify.com/")
+      break
     case "amazon":
     case "az":
       window.location.assign("https://www.amazon.com/")
@@ -242,7 +245,7 @@ function searchSiteFor(site, query) {
       window.location.assign("https://www.netflix.com/search?q=" + query)
       break
     case "spotify":
-      window.location.assign("https://open.spotify.com/search" + query)
+      window.location.assign("https://open.spotify.com/search/" + query)
       break
     case "amazon":
     case "az":
