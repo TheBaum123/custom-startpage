@@ -36,7 +36,7 @@ document.getElementById("searchbox").addEventListener("change", function() {
   if(searchinput.match(searchSite)) {
     let split = searchinput.split(":")
     searchSiteFor(split[0].toLowerCase(), split[1])
-  } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort) /* TODO: fix this regex */ ) {
+  } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort)) {
     window.location.assign("http://" + searchinput)
   } else if(validDirectLinks.includes(searchinput.toLowerCase(), 0)) {
     directLink(searchinput.toLowerCase())
