@@ -3,6 +3,7 @@ let focusedColorInput = document.getElementById("focused-color")
 let highlightColorInput = document.getElementById("highlight-color")
 let textColorInput = document.getElementById("text-color")
 let savedBookmarks = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))))
+let availableSearchEngines = { }
 
 function init() {
     bgColorInput.value = localStorage.getItem("bg-color")
@@ -22,11 +23,13 @@ function init() {
     if(localStorage.getItem("highlight-color") != null) {
     document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
     }
-    let bookmarkUUIDS = Object.keys(savedBookmarks)
-    for(let i = 0; i < bookmarkUUIDS.length; i++) {
-        let currentBookmark = bookmarkUUIDS[i];
-        let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[i]][0], currentBookmark)
-        document.getElementById("uuid-selector").add(newOption)
+    if(savedBookmarks != null) {
+        let bookmarkUUIDS = Object.keys(savedBookmarks)
+        for(let i = 0; i < bookmarkUUIDS.length; i++) {
+            let currentBookmark = bookmarkUUIDS[i];
+            let newOption = new Option(savedBookmarks[Object.keys(savedBookmarks)[i]][0], currentBookmark)
+            document.getElementById("uuid-selector").add(newOption)
+        }
     }
     document.getElementById("uuid-selector").addEventListener("change", function() {
         selectedUUIDvalue = savedBookmarks[document.getElementById("uuid-selector").value]
@@ -52,6 +55,37 @@ function init() {
         savedBookmarks[document.getElementById("uuid-selector").value] = selectedUUIDvalue
         localStorage.setItem("bookmarks", JSON.stringify(savedBookmarks))
     })
+    getAvailableSearchEngines()
+    document.getElementById("search-engine-selector").addEventListener("change", () => {
+        localStorage.setItem("selectedSearchEngine", document.getElementById("search-engine-selector").value)
+    })
+}
+
+function getAvailableSearchEngines() {
+    const xhr = new XMLHttpRequest()
+    xhr.open("GET", "resources/scripts/availableSearchEngines.json")
+    xhr.send()
+    xhr.responseType = "json"
+    xhr.onload = () => {
+        if(xhr.status == 200) {
+            availableSearchEngines = xhr.response
+            listAvailableSearchEngines()
+        } else {
+            availableSearchEngines = {"oh no, something went wrong":"oh no, something went wrong"}
+        }
+    }
+    }
+
+function listAvailableSearchEngines() {
+    for(i = 0; i < Object.keys(availableSearchEngines).length; i++) {
+        console.log(Object.keys(availableSearchEngines)[i])
+        let newOption = new Option(Object.keys(availableSearchEngines)[i], Object.keys(availableSearchEngines)[i])
+        document.getElementById("search-engine-selector").add(newOption)
+    }
+    if(localStorage.getItem("selectedSearchEngine") != null) {
+        document.getElementById("search-engine-selector").remove(0)
+        document.getElementById("search-engine-selector").value = localStorage.getItem("selectedSearchEngine")
+    }
 }
 
 bgColorInput.addEventListener("change", function() {
