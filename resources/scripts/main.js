@@ -7,6 +7,7 @@ const validLink = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?
 let bookmarks = { }
 let availableSearchEngines = { }
 let availableDirectLinks = { }
+let availableSearchSites = { }
 
 function init() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
@@ -25,6 +26,7 @@ function init() {
   }
   getAvailableSearchEngines()
   getAvailableDirectLinks()
+  getAvailableSearchSites()
 }
 
 function getAvailableSearchEngines() {
@@ -55,6 +57,20 @@ function getAvailableDirectLinks() {
   }
 }
 
+function getAvailableSearchSites() {
+  const xhr = new XMLHttpRequest()
+  xhr.open("GET", "resources/json/availableSearchSites.json")
+  xhr.send()
+  xhr.responseType = "json"
+  xhr.onload = () => {
+    if(xhr.status == 200) {
+      availableSearchSites = xhr.response
+    } else {
+      availableSearchSites = {"oh no, something went wrong":"oh no, something went wrong"}
+    }
+  }
+}
+
 function isIPvalid(IP) {
   if(IP.match(validIP)) {
       return true
@@ -72,9 +88,8 @@ document.getElementById("searchbox").addEventListener("change", function() {
     } else {
       window.location.assign("https://" + searchinput.toLowerCase())
     }
-  } else if(searchinput.match(searchSite)) {
-    let split = searchinput.split(":")
-    searchSiteFor(split[0].toLowerCase(), split[1])
+  } else if(Object.keys(availableSearchSites).includes(searchinput.toLowerCase().split(":")[0])) {
+    window.location.assign(availableSearchSites[searchinput.split(":")[0]] + searchinput.substring(searchinput.indexOf(":") + 1))
   } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort)) {
     window.location.assign("http://" + searchinput)
   } else if(Object.keys(availableDirectLinks).includes(searchinput.toLowerCase())) {
@@ -233,38 +248,5 @@ function monthConversion(month) {
       return ("November")
     case 11:
       return ("December")
-  }
-}
-
-function searchSiteFor(site, query) {
-  switch(site) {
-    case "reddit":
-      window.location.assign("https://www.reddit.com/search?q=" + query)
-      break
-    case "youtube":
-    case "yt":
-      console.log("youtube search: " + query)
-      break
-    case "twitch":
-    case "ttv":
-      window.location.assign("https://www.twitch.tv/search?term=" + query)
-      break
-    case "gh":
-    case "github":
-      window.location.assign("https://www.github.com/search?q=" + query)
-      break
-    case "netflix":
-      window.location.assign("https://www.netflix.com/search?q=" + query)
-      break
-    case "spotify":
-      window.location.assign("https://open.spotify.com/search/" + query)
-      break
-    case "amazon":
-    case "az":
-      window.location.assign("https://www.amazon.com/s?k=" + query)
-      break
-    default:
-      window.location.assign("https://www.google.com/search?q=" + site + "%20" + query)
-      break
   }
 }
