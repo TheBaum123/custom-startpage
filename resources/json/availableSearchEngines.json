@@ -1,6 +1,7 @@
 {
     "bing":"https://www.bing.com/search?q=",
     "brave":"https://search.brave.com/search?q=",
+    "dogpile":"https://www.dogpile.com/serp?q=",
     "duckduckgo":"https://duckduckgo.com/?q=",
     "ecosia":"https://www.ecosia.org/search?q=",
     "gibiru":"https://gibiru.com/results.html?q=",
@@ -9,6 +10,7 @@
     "searx":"https://searx.thegpm.org/search?q=",
     "startpage":"https://www.startpage.com/sp/search?query=",
     "swisscows":"https://swisscows.com/en/web?query=",
+    "webopedia":"https://www.webopedia.com/?s=",
     "wolfram alpha":"https://www.wolframalpha.com/input?i=",
     "yahoo":"https://de.search.yahoo.com/search?p=",
     "yandex":"https://yandex.com/search/?text=",
