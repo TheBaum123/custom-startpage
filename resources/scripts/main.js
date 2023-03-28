@@ -3,6 +3,7 @@ const validIP = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[
 const validIPwithPort = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$/g
 const searchSite = /[a-zA-Z]+[:][a-zA-Z]+./gi
 const configInput = /(^[:][config][A-Za-z]+|^[:]gui|^[:]help)/gi
+const validLink = /(?:(?:https?|ftp):\/\/|\b(?:[a-z\d]+\.))(?:(?:[^\s()<>]+|\((?:[^\s()<>]+|(?:\([^\s()<>]+\)))?\))+(?:\((?:[^\s()<>]+|(?:\(?:[^\s()<>]+\)))?\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))?/gi
 let bookmarks = { }
 let availableSearchEngines = { }
 let availableDirectLinks = { }
@@ -65,7 +66,13 @@ function isIPvalid(IP) {
 document.getElementById("searchbox").addEventListener("change", function() {
   let searchinput = document.getElementById("searchbox").value
   if(searchinput == "") {return}
-  if(searchinput.match(searchSite)) {
+  if(searchinput.toLowerCase().match(validLink)) {
+    if(searchinput.toLowerCase().startsWith("https://") || searchinput.toLowerCase().startsWith("http://")) {
+      window.location.assign(searchinput.toLowerCase())
+    } else {
+      window.location.assign("https://" + searchinput.toLowerCase())
+    }
+  } else if(searchinput.match(searchSite)) {
     let split = searchinput.split(":")
     searchSiteFor(split[0].toLowerCase(), split[1])
   } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort)) {
