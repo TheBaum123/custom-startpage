@@ -100,8 +100,8 @@ document.getElementById("searchbox").addEventListener("change", function() {
     } else {
       window.location.assign("https://" + searchinput.toLowerCase())
     }
-    // if the input is a site search and the site is available, take the user to the search
-  } else if(Object.keys(availableSearchSites).includes(searchinput.toLowerCase().split(":")[0])) {
+    //if the input is a site search, has a ':' and the site is available, take the user to the search
+  } else if(Object.keys(availableSearchSites).includes(searchinput.toLowerCase().split(":")[0]) && searchinput.includes(":")) {
     window.location.assign(availableSearchSites[searchinput.split(":")[0]] + searchinput.substring(searchinput.indexOf(":") + 1))
     //if it is a valid ip, prefix 'http://' and open the ip (with port if provided)
   } else if(searchinput.match(validIP) || searchinput.match(validIPwithPort)) {
