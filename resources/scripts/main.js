@@ -28,17 +28,17 @@ function setBackgroundImage() {
 
 //detect if any color is changed and saved in the localStorage, if so, assign it
 function getColorsFromLocalstorage() {
-  if(localStorage.getItem("bg-color") != null) {
-    document.querySelector(":root").style.setProperty("--bg-color", localStorage.getItem("bg-color"))
+  if(localStorage.getItem("startpage:bg-color") != null) {
+    document.querySelector(":root").style.setProperty("--bg-color", localStorage.getItem("startpage:bg-color"))
   }
-  if(localStorage.getItem("focused-color") != null) {
-    document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("focused-color"))
+  if(localStorage.getItem("startpage:focused-color") != null) {
+    document.querySelector(":root").style.setProperty("--focused-color", localStorage.getItem("startpage:focused-color"))
   }
-  if(localStorage.getItem("highlight-color") != null) {
-    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("highlight-color"))
+  if(localStorage.getItem("startpage:highlight-color") != null) {
+    document.querySelector(":root").style.setProperty("--highlight-color", localStorage.getItem("startpage:highlight-color"))
   }
-  if(localStorage.getItem("text-color") != null) {
-    document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("text-color"))
+  if(localStorage.getItem("startpage:text-color") != null) {
+    document.querySelector(":root").style.setProperty("--text-color", localStorage.getItem("startpage:text-color"))
   }
 }
 
@@ -113,12 +113,12 @@ document.getElementById("searchbox").addEventListener("change", function() {
   } else if(searchinput.match(configInput)) {
     internalCommand(searchinput)
     //else: check if user selected a search engine
-  } else if(localStorage.getItem("selectedSearchEngine") == null) {
+  } else if(localStorage.getItem("startpage:selected-search-engine") == null) {
     //if not: search input on duck duck go
     window.location.assign(availableSearchEngines.duckduckgo + searchinput)
   } else {
     //if yes: search input on selected search engine
-    window.location.assign(availableSearchEngines[localStorage.getItem("selectedSearchEngine")] + searchinput)
+    window.location.assign(availableSearchEngines[localStorage.getItem("startpage:selected-search-engine")] + searchinput)
   }
 })
 
@@ -141,7 +141,7 @@ function internalCommand(input) {
             localStorage.removeItem("bg-color")
           } else {
             document.querySelector(":root").style.setProperty("--bg-color", command[2])
-            localStorage.setItem("bg-color", command[2])
+            localStorage.setItem("startpage:bg-color", command[2])
           }
           break
         case "focused-color":
@@ -150,7 +150,7 @@ function internalCommand(input) {
             localStorage.removeItem("focused-color")
           } else {
             document.querySelector(":root").style.setProperty("--focused-color", command[2])
-            localStorage.setItem("focused-color", command[2])
+            localStorage.setItem("startpage:focused-color", command[2])
           }
           break
         case "highlight-color":
@@ -159,7 +159,7 @@ function internalCommand(input) {
             localStorage.removeItem("highlight-color")
           } else {
             document.querySelector(":root").style.setProperty("--highlight-color", command[2])
-            localStorage.setItem("highlight-color", command[2])
+            localStorage.setItem("startpage:highlight-color", command[2])
           }
           break
         case "text-color":
@@ -168,7 +168,7 @@ function internalCommand(input) {
             localStorage.removeItem("text-color")
           } else {
             document.querySelector(":root").style.setProperty("--text-color", command[2])
-            localStorage.setItem("text-color", command[2])
+            localStorage.setItem("startpage:text-color", command[2])
           }
           break
         /*
@@ -183,11 +183,15 @@ function internalCommand(input) {
           //check if its available
           if(Object.keys(availableSearchEngines).includes(command[2])) {
             //if yes, write it to localStorage ( TODO: Fix this as it doesn't work)
-            localStorage.setItem("selectedSearchEngine", command[2])
+            localStorage.setItem("startpage:selected-search-engine", command[2])
           }
         //if user does 'config default', clear the localStorage and reload
         case "default":
-          localStorage.clear()
+          localStorage.removeItem("bg-color")
+          localStorage.removeItem("text-color")
+          localStorage.removeItem("focused-color")
+          localStorage.removeItem("bookmarks")
+          localStorage.removeItem("selected-search-engine")
           window.location.reload()
           break
       }
@@ -212,7 +216,7 @@ function editBookmarks(commandInput) {
   if(commandInput[2] == "add") {
     let uuid = crypto.randomUUID()
     bookmarks[uuid] = [commandInput[3], commandInput[4], commandInput[5]]
-    localStorage.setItem("bookmarks", JSON.stringify(bookmarks))
+    localStorage.setItem("startpage:bookmarks", JSON.stringify(bookmarks))
     document.getElementById("searchbox").value = "bookmark saved"
     setTimeout(() => {
       document.getElementById("searchbox").value = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
@@ -226,7 +230,7 @@ function editBookmarks(commandInput) {
 
 /*
 function readBookmarks() {
-  let temp = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("bookmarks"))))
+  let temp = JSON.parse(JSON.parse(JSON.stringify(localStorage.getItem("startpage:bookmarks"))))
   console.log(temp)
 }
 */
