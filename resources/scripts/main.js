@@ -187,11 +187,11 @@ function internalCommand(input) {
           }
         //if user does 'config default', clear the localStorage and reload
         case "default":
-          localStorage.removeItem("bg-color")
-          localStorage.removeItem("text-color")
-          localStorage.removeItem("focused-color")
-          localStorage.removeItem("bookmarks")
-          localStorage.removeItem("selected-search-engine")
+          localStorage.removeItem("startpage:bg-color")
+          localStorage.removeItem("startpage:text-color")
+          localStorage.removeItem("startpage:focused-color")
+          localStorage.removeItem("startpage:bookmarks")
+          localStorage.removeItem("startpage:selected-search-engine")
           window.location.reload()
           break
       }
