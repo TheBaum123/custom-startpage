@@ -180,11 +180,15 @@ function internalCommand(input) {
         //if its changing the search engine
         case "searchengine":
         case "search":
-          //check if its available
-          if(Object.keys(availableSearchEngines).includes(command[2])) {
-            //if yes, write it to localStorage ( TODO: Fix this as it doesn't work)
+          if(availableSearchEngines.hasOwnProperty(command[2])) {
+            let temp = document.getElementById("searchbox").value
             localStorage.setItem("startpage:selected-search-engine", command[2])
+            document.getElementById("searchbox").value = "set search engine to \"" + command[2] + "\""
+            setTimeout(() => {
+              replaceInput(temp)
+            }, 2000);
           }
+          break
         //if user does 'config default', clear the localStorage and reload
         case "default":
           localStorage.removeItem("startpage:bg-color")
@@ -194,6 +198,12 @@ function internalCommand(input) {
           localStorage.removeItem("startpage:selected-search-engine")
           window.location.reload()
           break
+        default:
+          const temp = document.getElementById("searchbox").value
+          document.getElementById("searchbox").value = "command unknown"
+          setTimeout(() => {
+            replaceInput(temp)
+          }, 2000);
       }
       break
     //if its gui, open the gui configuration
@@ -207,8 +217,16 @@ function internalCommand(input) {
       break
     //for anything else, replace the input with 'command unknown'
     default:
+      const temp = document.getElementById("searchbox").value
       document.getElementById("searchbox").value = "command unknown"
+      setTimeout(() => {
+        replaceInput(temp)
+      }, 2000);
   }
+}
+
+function replaceInput(input) {
+  document.getElementById("searchbox").value = input
 }
 
 /*
