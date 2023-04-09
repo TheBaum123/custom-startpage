@@ -1,0 +1,9 @@
+{
+    "manifest_version": 2,
+    "name": "The_Baum's custom startpage",
+    "version": "1.0",
+    "description": "Changes the Startpage to a custom one made by The_Baum.",
+    "chrome_url_overrides" : {
+        "newtab": "index.html"
+    }
+}
