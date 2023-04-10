@@ -118,16 +118,6 @@ body {
     color: var(--highlight-color);
 }
 
-#seperator {
-    position: absolute;
-    top: 25vh;
-    left: 75vw;
-    font-size: 6vh;
-    color: var(--text-color);
-    transform: translate(-50%, -60%);
-    z-index: 1000;
-}
-
 #settings {
     position: absolute;
     color: var(--text-color);
