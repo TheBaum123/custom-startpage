@@ -134,7 +134,7 @@ for (i=0; i<scripts.length; i++) {
     scripts[i].parentNode.removeChild(scripts[i]);
   }
 }
-url = "http://google.com/complete/search?client=firefox&q=" + userSearchInput + "&callback=callback";
+url = "https://google.com/complete/search?client=firefox&q=" + userSearchInput + "&callback=callback";
 const script = document.createElement("script");
 script.setAttribute("src", url);
 script.setAttribute("type", "text/javascript");
