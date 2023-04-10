@@ -105,6 +105,7 @@ body {
     transform: translate(-50%, -50%);
     background-color: var(--focused-color);
     border-radius: 0.5vh;
+    border: 0;
 }
 
 #searchbutton>ion-icon {
