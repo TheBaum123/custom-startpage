@@ -125,43 +125,44 @@ document.addEventListener("keydown", (e) => {
   jsonp()
 })
 
-function jsonp(){
-let scripts = document.getElementsByTagName("script");
-for (i=0; i<scripts.length; i++) {
-  let url = scripts[i].getAttribute("src");
-  if(!url) continue;
-  if(url.indexOf("callback")>=0) {
-    scripts[i].parentNode.removeChild(scripts[i]);
+    function jsonp(){
+  let scripts = document.getElementsByTagName("script");
+  for (i=0; i<scripts.length; i++) {
+    let url = scripts[i].getAttribute("src");
+    if(!url) continue;
+    if(url.indexOf("callback")>=0) {
+      scripts[i].parentNode.removeChild(scripts[i]);
+    }
   }
-}
-url = "https://google.com/complete/search?client=firefox&q=" + userSearchInput + "&callback=callback";
-const script = document.createElement("script");
-script.setAttribute("src", url);
-script.setAttribute("type", "text/javascript");
-document.getElementsByTagName("head")[0].appendChild(script);
-}
+  url = "https://google.com/complete/search?client=firefox&q=" + userSearchInput + "&callback=callback";
+  const script = document.createElement("script");
+  script.setAttribute("src", url);
+  script.setAttribute("type", "text/javascript");
+  document.getElementsByTagName("head")[0].appendChild(script);
+  }
 
-function callback(data) {
-  while(document.getElementById("suggestions").firstChild) {
-      document.getElementById("suggestions").removeChild(document.getElementById("suggestions").firstChild)
+  function callback(data) {
+    while(document.getElementById("suggestions").firstChild) {
+        document.getElementById("suggestions").removeChild(document.getElementById("suggestions").firstChild)
+    }
+    for(let i = 0; i < Math.min(data[1].length, 5); i++) {
+        const option = document.createElement("button")
+        option.id = "option" + i
+        option.classList.add("options")
+        option.addEventListener("click", () => {
+            userSearchInput = data[1][i]
+            search()
+        })
+        const optionText = document.createTextNode(data[1][i])
+        option.appendChild(optionText)
+        document.getElementById("suggestions").appendChild(option)
+    }
+    if(!document.getElementById("suggestions").firstChild) {
+        document.getElementById("suggestions").style.transform = "translate(-50%, 50%) scale(0)"
+    } else {
+        document.getElementById("suggestions").style.transform = "translate(-50%, 0) scale(1)"
+    }
   }
-  for(let i = 0; i < Math.min(data[1].length, 5); i++) {
-      const option = document.createElement("button")
-      option.id = "option" + i
-      option.classList.add("options")
-      option.addEventListener("click", () => {
-          window.location.assign("https://www.google.com/search?q=" + data[1][i])
-      })
-      const optionText = document.createTextNode(data[1][i])
-      option.appendChild(optionText)
-      document.getElementById("suggestions").appendChild(option)
-  }
-  if(!document.getElementById("suggestions").firstChild) {
-      document.getElementById("suggestions").style.transform = "translate(-50%, 50%) scale(0)"
-  } else {
-      document.getElementById("suggestions").style.transform = "translate(-50%, 0) scale(1)"
-  }
-}
 
 //detect changes of the searchbox
 function search() {
