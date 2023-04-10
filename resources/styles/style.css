@@ -48,30 +48,6 @@ body {
     height: fit-content;
 }
 
-#searchbox {
-    position: absolute;
-    top: 35vh;
-    left: 50vw;
-    transform: translate(-50%, -50%);
-    background-color: var(--bg-color);
-    border: 0;
-    height: 2vh;
-    width: 30vw;
-    border-radius: 1vh;
-    text-align: center;
-    color: var(--text-color);
-    font-size: 1.75vh;
-    transition: 500ms;
-    backdrop-filter: blur(5px);
-    padding: 0.5vh;
-}
-
-#searchbox:focus {
-    outline: none;
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.5));
-    background-color: var(--focused-color);
-}
-
 #bookmarks {
     position: relative;
     left: 50%;
@@ -122,16 +98,18 @@ body {
 
 #searchbutton {
     position: absolute;
-    height: 2vh;
-    width: 2vw;
-    top: 35.25vh;
-    left: 64vw;
+    height: 5vh;
+    width: 5vh;
+    top: 25vh;
+    left: 79vw;
     transform: translate(-50%, -50%);
+    background-color: var(--focused-color);
+    border-radius: 0.5vh;
 }
 
 #searchbutton>ion-icon {
     color: var(--text-color);
-    font-size: 1.5vh;
+    font-size: 5vh;
     transition: 100ms;
 }
 
@@ -141,11 +119,12 @@ body {
 
 #seperator {
     position: absolute;
-    top: 35vh;
-    left: 62vw;
-    font-size: 3.2vh;
+    top: 25vh;
+    left: 75vw;
+    font-size: 6vh;
     color: var(--text-color);
     transform: translate(-50%, -60%);
+    z-index: 1000;
 }
 
 #settings {
@@ -163,4 +142,74 @@ body {
 #settings:hover {
     transform: scale(2) translate(-25%, -25%);
     color: var(--highlight-color);
+}
+
+#searchbar {
+    background-color: var(--focused-color);
+    border-radius: 0.5vh;
+    height: fit-content;
+    width: 50vw;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 500ms;
+    color: var(--text-color);
+    text-align: center;
+    min-height: 5vh;
+}
+
+.inputSpan {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    font-size: 5vh;
+    white-space: pre;
+    transition: 500ms;
+}
+
+@keyframes blink {
+    0% { transform: scaleY(100%); }
+    50% { transform: scaleY(0%); }
+    100% { transform: scaleY(100%); }
+}
+
+#cursor {
+    position: relative;
+    background-color: var(--text-color);
+    height: 4vh;
+    width: 2.5%;
+    top: 0.5vh;
+    display: inline-block;
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-delay: 0.5s;
+}
+
+#suggestions {
+    height: 15vh;
+    width: 50vw;
+    border-radius: 0.5vh;
+    text-align: center;
+    position: fixed;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, 50%) scale(0);
+    display: grid;
+    transition: 500ms;
+    gap: 0.25vh;
+}
+
+#suggestions>* {
+    background-color: var(--bg-color);
+    border: var(--focused-color) 0.25vh solid;
+    border-radius: 0.5vh;
+    color: var(--text-color);
+    transition: 500ms;
+    font-size: 2vh;
+}
+
+#suggestions>*:hover {
+    transform: scale(1.1);
 }
