@@ -20,6 +20,8 @@
     "ttv": "https://www.twitch.tv/search?term=",
     "twitch": "https://www.twitch.tv/search?term=",
     "webopedia": "https://www.webopedia.com/?s=",
+    "wiki": "https://www.wikipedia.org/w/index.php?search=",
+    "wikipedia": "https://www.wikipedia.org/w/index.php?search=",
     "wolfram alpha": "https://www.wolframalpha.com/input?i=",
     "yahoo": "https://de.search.yahoo.com/search?p=",
     "yandex": "https://yandex.com/search/?text=",
