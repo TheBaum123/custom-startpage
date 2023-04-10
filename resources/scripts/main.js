@@ -10,6 +10,7 @@ let bookmarks = { }
 let availableSearchEngines = { }
 let availableDirectLinks = { }
 let availableSearchSites = { }
+let userSearchInput = ""
 
 //call all functions that have to be calle on page load
 function init() {
@@ -25,6 +26,10 @@ function setBackgroundImage() {
   document.body.style.background = "url(resources/img/" + Math.floor(Math.random() * 2) + ".jpg) no-repeat center center fixed"
   document.body.style.backgroundSize = "cover"
 }
+
+document.getElementById("searchbutton").addEventListener("click", () => {
+  search()
+})
 
 //detect if any color is changed and saved in the localStorage, if so, assign it
 function getColorsFromLocalstorage() {
@@ -87,10 +92,81 @@ function getAvailableSearchSites() {
   }
 }
 
+document.addEventListener("keydown", (e) => {
+  const searchbox = document.getElementById("searchbar")
+  searchbox.removeChild(document.getElementById("cursor"))
+  if(e.key == " ") {
+      e.preventDefault()
+      const spanToAdd = document.createElement("span")
+      const inputToAdd = document.createTextNode(" ")
+      spanToAdd.appendChild(inputToAdd)
+      spanToAdd.classList.add("inputSpan")
+      searchbox.appendChild(spanToAdd)
+      if(userSearchInput.endsWith(" ") == false) {
+        userSearchInput += e.key
+      }
+  } else if(e.key.length == 1) {
+      const spanToAdd = document.createElement("span")
+      const inputToAdd = document.createTextNode(e.key)
+      spanToAdd.appendChild(inputToAdd)
+      spanToAdd.classList.add("inputSpan")
+      searchbox.appendChild(spanToAdd)
+      userSearchInput += e.key
+  } else if(e.key == "Enter") {
+    search()
+  } else if(e.key == "Backspace") {
+      if(searchbox.childNodes.length >= 1)
+      searchbox.removeChild(searchbox.lastChild)
+      userSearchInput = userSearchInput.substring(0, userSearchInput.length - 1)
+  }
+  const cursor = document.createElement("div")
+  cursor.id = "cursor"
+  searchbox.appendChild(cursor)
+  jsonp()
+})
+
+function jsonp(){
+let scripts = document.getElementsByTagName("script");
+for (i=0; i<scripts.length; i++) {
+  let url = scripts[i].getAttribute("src");
+  if(!url) continue;
+  if(url.indexOf("callback")>=0) {
+    scripts[i].parentNode.removeChild(scripts[i]);
+  }
+}
+url = "http://google.com/complete/search?client=firefox&q=" + userSearchInput + "&callback=callback";
+const script = document.createElement("script");
+script.setAttribute("src", url);
+script.setAttribute("type", "text/javascript");
+document.getElementsByTagName("head")[0].appendChild(script);
+}
+
+function callback(data) {
+  while(document.getElementById("suggestions").firstChild) {
+      document.getElementById("suggestions").removeChild(document.getElementById("suggestions").firstChild)
+  }
+  for(let i = 0; i < Math.min(data[1].length, 5); i++) {
+      const option = document.createElement("button")
+      option.id = "option" + i
+      option.classList.add("options")
+      option.addEventListener("click", () => {
+          window.location.assign("https://www.google.com/search?q=" + data[1][i])
+      })
+      const optionText = document.createTextNode(data[1][i])
+      option.appendChild(optionText)
+      document.getElementById("suggestions").appendChild(option)
+  }
+  if(!document.getElementById("suggestions").firstChild) {
+      document.getElementById("suggestions").style.transform = "translate(-50%, 50%) scale(0)"
+  } else {
+      document.getElementById("suggestions").style.transform = "translate(-50%, 0) scale(1)"
+  }
+}
+
 //detect changes of the searchbox
-document.getElementById("searchbox").addEventListener("change", function() {
+function search() {
   //get searchbox input
-  let searchinput = document.getElementById("searchbox").value
+  let searchinput = userSearchInput
   //if no input provided, stop
   if(searchinput == "") {return}
   //if input is a link, prefix 'https://' where needed and take user to the link
@@ -120,7 +196,7 @@ document.getElementById("searchbox").addEventListener("change", function() {
     //if yes: search input on selected search engine
     window.location.assign(availableSearchEngines[localStorage.getItem("startpage:selected-search-engine")] + searchinput)
   }
-})
+}
 
 //function to deal with configuration input starting with ':'
 function internalCommand(input) {
@@ -181,12 +257,7 @@ function internalCommand(input) {
         case "searchengine":
         case "search":
           if(availableSearchEngines.hasOwnProperty(command[2])) {
-            let temp = document.getElementById("searchbox").value
             localStorage.setItem("startpage:selected-search-engine", command[2])
-            document.getElementById("searchbox").value = "set search engine to \"" + command[2] + "\""
-            setTimeout(() => {
-              replaceInput(temp)
-            }, 2000);
           }
           break
         //if user does 'config default', clear the localStorage and reload
@@ -199,11 +270,6 @@ function internalCommand(input) {
           window.location.reload()
           break
         default:
-          const temp = document.getElementById("searchbox").value
-          document.getElementById("searchbox").value = "command unknown"
-          setTimeout(() => {
-            replaceInput(temp)
-          }, 2000);
       }
       break
     //if its gui, open the gui configuration
@@ -217,16 +283,7 @@ function internalCommand(input) {
       break
     //for anything else, replace the input with 'command unknown'
     default:
-      const temp = document.getElementById("searchbox").value
-      document.getElementById("searchbox").value = "command unknown"
-      setTimeout(() => {
-        replaceInput(temp)
-      }, 2000);
   }
-}
-
-function replaceInput(input) {
-  document.getElementById("searchbox").value = input
 }
 
 /*
@@ -235,9 +292,9 @@ function editBookmarks(commandInput) {
     let uuid = crypto.randomUUID()
     bookmarks[uuid] = [commandInput[3], commandInput[4], commandInput[5]]
     localStorage.setItem("startpage:bookmarks", JSON.stringify(bookmarks))
-    document.getElementById("searchbox").value = "bookmark saved"
+    userSearchInput = "bookmark saved"
     setTimeout(() => {
-      document.getElementById("searchbox").value = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
+      userSearchInput = commandInput[0] + " " + commandInput[1] + " " + commandInput[2] + " " + commandInput[3] + " " + commandInput[4] + " " + commandInput[5]
       console.log(commandInput)
     }, 1000);
   } else if(commandInput[2] == "default") {
@@ -252,16 +309,6 @@ function readBookmarks() {
   console.log(temp)
 }
 */
-
-//check for user input
-document.onkeypress = function(e) {
-  //check if the searchbox is selected
-  if (document.activeElement.id != "searchbox") {
-    //if not: insert pressed keys and select the searchbox
-    document.getElementById("searchbox").value = document.getElementById("searchbox").value + e.key
-    document.getElementById("searchbox").focus()
-  }
-}
 
 //time stuff
 function clockAndDateUpdate() {

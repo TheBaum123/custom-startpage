@@ -12,11 +12,14 @@
     <link rel="icon" type="image/x-icon" href="https://thebaum123.github.io/favicon.png">
 </head>
 <body onload="init()">
-    <input type="text" id="searchbox" placeholder="Search the web">
-    <label id="seperator">|</label>
-    <div id="searchbutton">
-        <ion-icon name="search"></ion-icon>
+    <div id="suggestions"></div>
+    <div id="searchbar">
+        <div id="cursor"></div>
     </div>
+    <label id="seperator">|</label>
+    <button id="searchbutton">
+        <ion-icon name="search"></ion-icon>
+    </button>
     <a href="config.html">
         <ion-icon name="settings" id="settings"></ion-icon>
     </a>
