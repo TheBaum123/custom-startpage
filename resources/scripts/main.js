@@ -167,7 +167,7 @@ document.addEventListener("keydown", (e) => {
 //detect changes of the searchbox
 function search() {
   //get searchbox input
-  let searchinput = userSearchInput
+  let searchinput = encodeURI(userSearchInput)
   //if no input provided, stop
   if(searchinput == "") {return}
   //if input is a link, prefix 'https://' where needed and take user to the link
