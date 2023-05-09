@@ -50,7 +50,7 @@ function getColorsFromLocalstorage() {
 //get the available search engines from the json file and store them in the 'availableSearchEngines' variable
 function getAvailableSearchEngines() {
   const xhr = new XMLHttpRequest()
-  xhr.open("GET", "resources/json/availableSearchEngines.json")
+  xhr.open("GET", "https://raw.githubusercontent.com/TheBaum123/custom-startpage/main/resources/json/availableSearchEngines.json")
   xhr.send()
   xhr.responseType = "json"
   xhr.onload = () => {
@@ -65,7 +65,7 @@ function getAvailableSearchEngines() {
 //get the direct links from the json file and store them in the 'availableDirectLinks' variable
 function getAvailableDirectLinks() {
   const xhr = new XMLHttpRequest()
-  xhr.open("GET", "resources/json/availableDirectLinks.json")
+  xhr.open("GET", "https://raw.githubusercontent.com/TheBaum123/custom-startpage/main/resources/json/availableDirectLinks.json")
   xhr.send()
   xhr.responseType = "json"
   xhr.onload = () => {
@@ -80,7 +80,7 @@ function getAvailableDirectLinks() {
 //get the searchable sites from the json file and store them in the 'availableSearchSites' variable
 function getAvailableSearchSites() {
   const xhr = new XMLHttpRequest()
-  xhr.open("GET", "resources/json/availableSearchSites.json")
+  xhr.open("GET", "https://raw.githubusercontent.com/TheBaum123/custom-startpage/main/resources/json/availableSearchSites.json")
   xhr.send()
   xhr.responseType = "json"
   xhr.onload = () => {
